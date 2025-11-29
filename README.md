@@ -56,7 +56,7 @@ It’s the kind of work that makes me excited to wake up and learn more.
 If you like ML, biology, or building things that matter, I’d love to chat.
 
 - LinkedIn: *https://www.linkedin.com/in/rushath-rajeev-456b6a18b/*  
-
+- [Readings I have done so far](readings.md)
 ---
 
 
