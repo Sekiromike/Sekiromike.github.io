@@ -6,11 +6,11 @@
 
 
 
-\- \*\*Mathematics I\*\* — H. Anton, I. Bivens \& S. Davis, \*Calculus\*
+\- \*\*Mathematics I\*\* — H. Anton, I.  Bivens \& S. Davis, \*Calculus\*
 
 \- \*\*Mathematics II\*\* — E. Kreyszig, \*Advanced Engineering Mathematics\*
 
-\- \*\*Mathematics III\*\* — R. A. Johnson, \*Miller \& Freund's Probability and Statistics for Engineers\*
+\- \*\*Mathematics III\*\* — R.  A. Johnson, \*Miller \& Freund's Probability and Statistics for Engineers\*
 
 \- \*\*Mathematics IV\*\* — E. Kreyszig, \*Advanced Engineering Mathematics\*
 
@@ -22,7 +22,7 @@
 
 \- \*\*Physics\*\* — Kenneth Krane, \*Modern Physics\*
 
-\- \*\*Chemistry\*\* — P. Atkins \& J. de Paula, \*Atkins' Physical Chemistry\*
+\- \*\*Chemistry\*\* — P.  Atkins \& J. de Paula, \*Atkins' Physical Chemistry\*
 
 
 
@@ -46,15 +46,15 @@
 
 \- \*\*Unit Operations\*\* — McCabe, Smith \& Harriott, \*Unit Operations of Chemical Engineering\*
 
-\- \*\*Process Calculations\*\* — B. I. Bhatt \& S. M. Vora, \*Stoichiometry\*
+\- \*\*Process Calculations\*\* — B.  I. Bhatt \& S.  M. Vora, \*Stoichiometry\*
 
 \- \*\*Bioprocess Principles\*\* — Bailey \& Ollis, \*Biochemical Engineering Fundamentals\*
 
 \- \*\*Downstream Processing\*\* — Belter et al., \*Bioseparation\*
 
-\- \*\*Bioreactor Design \& Analysis\*\* — O. Levenspiel, \*Chemical Reaction Engineering\*
+\- \*\*Bioreactor Design \& Analysis\*\* — O.  Levenspiel, \*Chemical Reaction Engineering\*
 
-\- \*\*Biostatistics\*\* — B. Rosner, \*Fundamentals of Biostatistics\*
+\- \*\*Biostatistics\*\* — B.  Rosner, \*Fundamentals of Biostatistics\*
 
 \- \*\*Instrumental Methods of Analysis\*\* — Skoog et al., \*Principles of Instrumental Analysis\*
 
