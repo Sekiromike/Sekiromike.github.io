@@ -35,6 +35,17 @@ I’m someone who enjoys:
 - Performed microbiology and molecular biology techniques (aseptic culturing, PCR, electrophoresis, microscopy).
 - Assisted with experimental design, data analysis, and collaborative troubleshooting.
 
+### Research Trainee (May 2019 - Jun 2019)
+*ICMR - Regional Medical Research Centre | Port Blair*
+- Trained in microbiological, serological, and molecular biological techniques.
+- Performed bacterial culturing (Leptospira), Microscopy, and Microscopic Agglutination Test (MAT).
+- Conducted ELISA, genomic DNA isolation, agarose gel electrophoresis, and PCR.
+
+### Research Intern (Winter 2018)
+*Phycospectrum Environmental Research Centre (PERC)*
+- Studied Phycoremediation of industrial effluents and screened microalgae for waste treatment.
+- Monitored water quality parameters (BOD, COD) and learned algal culturing techniques.
+
 ---
 
 ## 🧪 Projects & Research
