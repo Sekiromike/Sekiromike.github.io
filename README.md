@@ -35,7 +35,7 @@ I’m someone who enjoys:
 - Performed microbiology and molecular biology techniques (aseptic culturing, PCR, electrophoresis, microscopy).
 - Assisted with experimental design, data analysis, and collaborative troubleshooting.
 
-### Research Trainee (May 2019 - Jun 2019)
+### Research Trainee (Summer 2019)
 *ICMR - Regional Medical Research Centre | Port Blair*
 - Trained in microbiological, serological, and molecular biological techniques.
 - Performed bacterial culturing (Leptospira), Microscopy, and Microscopic Agglutination Test (MAT).
