@@ -1,4 +1,4 @@
-<h1 align="center">Hi, I'm Rushath 👋</h1>
+<h1 align="center">Hi, I'm Rushath</h1>
 
 <p align="center">
   I use biology, data, and machine learning to explore <strong>targeted medicine</strong>, <strong>artificial proteins</strong>, and <strong>antimicrobial resistance</strong>.
