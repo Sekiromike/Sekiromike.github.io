@@ -383,3 +383,52 @@ h2 {
         flex-direction: column;
     }
 }
+
+/* Global Focus Trigger */
+.focus-trigger {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 1.2rem;
+    background: rgba(20, 20, 24, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 50px;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.focus-trigger:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.focus-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .focus-trigger {
+        top: 1rem;
+        right: 1rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .focus-text {
+        display: none;
+    }
+}
