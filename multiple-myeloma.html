@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Myeloma | Pathophysiology & Forecasting</title>
+    <meta name="description"
+        content="Scientific overview of Multiple Myeloma pathophysiology, epidemiology, and treatment landscapes. Access the interactive forecasting model.">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .scientific-content {
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .scientific-content h3 {
+            color: var(--text-primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .scientific-content h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .citation-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--text-accent);
+            padding: 1.5rem;
+            margin-top: 3rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .citation-item {
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            font-family: var(--font-mono);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--text-accent), var(--text-bio));
+            color: var(--bg-primary);
+            font-weight: 700;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(52, 211, 153, 0.4);
+            color: #000;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            color: var(--text-accent);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-gradient"></div>
+
+    <main class="container">
+        <section class="section visible" style="padding-top: 4rem;">
+            <a href="index.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back to Home
+            </a>
+
+            <h1 class="hero-title">Multiple <span class="text-accent">Myeloma</span></h1>
+            <p class="hero-subtitle">Pathophysiology, Epidemiology, and Treatment Landscape</p>
+
+            <a href="https://myeloma.streamlit.app" target="_blank" class="cta-button">
+                Launch Forecasting Model ↗
+            </a>
+
+            <div class="glass-panel scientific-content" style="margin-top: 4rem;">
+                <h2>Pathophysiology</h2>
+                <p>
+                    Multiple Myeloma (MM) is a cytogenetically heterogeneous plasma cell malignancy characterized by the
+                    clonal proliferation of malignant plasma cells within the bone marrow microenvironment. These
+                    malignant
+                    cells typically secrete a monoclonal immunoglobulin protein (M-protein) or free light chains, which
+                    serve
+                    as key biomarkers for diagnosis and monitoring.
+                </p>
+                <p style="margin-top: 1rem;">
+                    The pathophysiology involves a complex interplay between myeloma cells and the bone marrow stromal
+                    cells,
+                    mediated by cytokines such as IL-6, TNF-&alpha;, and RANKL. This interaction leads to the defining
+                    clinical
+                    features often summarized by the <strong>CRAB</strong> criteria:
+                </p>
+                <ul class="styled-list" style="margin-top: 1rem;">
+                    <li><strong>C</strong>alcium elevation (Hypercalcemia) due to increased osteoclast activity.</li>
+                    <li><strong>R</strong>enal insufficiency caused by light chain cast nephropathy.</li>
+                    <li><strong>A</strong>nemia resulting from marrow infiltration and suppressed erythropoiesis.</li>
+                    <li><strong>B</strong>one abnormalities, specifically lytic lesions and osteoporosis.</li>
+                </ul>
+
+                <h3>Epidemiology</h3>
+                <p>
+                    MM accounts for approximately 10% of all hematologic malignancies. The incidence increases
+                    significantly
+                    with age, with a median age at diagnosis of approximately 69 years. In the United States, the SEER
+                    database reports an age-adjusted incidence rate of roughly 7.1 per 100,000 men and women per year.
+                    Racial disparities are notable, with incidence rates being more than twofold higher in African
+                    Americans
+                    compared to White Americans.
+                </p>
+
+                <h3>Treatment Landscape</h3>
+                <p>
+                    The therapeutic landscape for myeloma has evolved rapidly. Standard of care has shifted from simple
+                    alkylating agents to novel combination therapies targeting specific cellular mechanisms:
+                </p>
+                <ul class="styled-list" style="margin-top: 1rem;">
+                    <li><strong>Proteasome Inhibitors (PIs):</strong> Bortezomib, Carfilzomib, Ixazomib. Disruption of
+                        protein homeostasis in plasma cells.</li>
+                    <li><strong>Immunomodulatory Drugs (IMiDs):</strong> Lenalidomide, Pomalidomide. Cereblon-mediated
+                        degradation of Ikaros/Aiolos.</li>
+                    <li><strong>Monoclonal Antibodies (mAbs):</strong> Daratumumab, Isatuximab (Anti-CD38); Elotuzumab
+                        (Anti-SLAMF7).</li>
+                    <li><strong>BCMA-Targeted Therapies:</strong> Chimeric Antigen Receptor (CAR) T-cell therapies and
+                        Bispecific T-cell Engagers (BiTEs) representing the newest frontier in relapsed/refractory
+                        settings.</li>
+                </ul>
+            </div>
+
+            <div class="citation-box">
+                <h4 style="color: var(--text-primary); margin-bottom: 1rem;">Scientific References & Resources</h4>
+                <div class="citation-item">
+                    1. Rajkumar, S. V., et al. (2014). "International Myeloma Working Group updated criteria for the
+                    diagnosis of multiple myeloma." <em>The Lancet Oncology</em>.
+                </div>
+                <div class="citation-item">
+                    2. Kumar, S. K., et al. (2020). "Multiple Myeloma, Version 3.2021, NCCN Clinical Practice Guidelines
+                    in Oncology." <em>Journal of the National Comprehensive Cancer Network</em>.
+                </div>
+                <div class="citation-item">
+                    3. GBD 2016 Multiple Myeloma Collaborators. (2018). "Global, regional, and national burden of
+                    multiple myeloma, 1990–2016." <em>JAMA Oncology</em>.
+                </div>
+                <div class="citation-item">
+                    4. SEER Cancer Stat Facts: Myeloma. National Cancer Institute. <a
+                        href="https://seer.cancer.gov/statfacts/html/mulmy.html" target="_blank"
+                        style="color: var(--text-accent); text-decoration: underline;">seer.cancer.gov</a>
+                </div>
+            </div>
+
+        </section>
+
+        <footer class="footer section" style="margin-top: 0; border-top: none;">
+            <p class="copyright">© 2026 Rushath Rajeev. All rights reserved.</p>
+        </footer>
+    </main>
+</body>
+
+</html>
