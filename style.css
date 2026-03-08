@@ -432,3 +432,204 @@ h2 {
         display: none;
     }
 }
+/* =========================================================================
+   NEW REFINED STYLES - PORTFOLIO V2
+   ========================================================================= */
+
+/* Mesh Gradient & Background Enhancements */
+.bg-gradient {
+    background:
+        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(52, 211, 153, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(20, 20, 24, 1) 0%, transparent 100%),
+        radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.04) 0%, transparent 35%);
+    animation: bg-pulse-complex 15s ease-in-out infinite alternate;
+}
+
+@keyframes bg-pulse-complex {
+    0% { transform: scale(1); filter: hue-rotate(0deg); }
+    100% { transform: scale(1.05); filter: hue-rotate(5deg); }
+}
+
+/* Glass Panel Enhancements - Glow & Depth */
+.glass-panel {
+    background: linear-gradient(145deg, rgba(20, 20, 24, 0.7), rgba(15, 15, 17, 0.8));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-panel:hover {
+    border-color: rgba(56, 189, 248, 0.2);
+    box-shadow: 0 10px 40px -10px rgba(56, 189, 248, 0.15),
+                inset 0 0 20px rgba(255, 255, 255, 0.02);
+}
+
+/* Typography Enhancements */
+h2 {
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--text-accent), var(--text-bio));
+    border-radius: 2px;
+}
+
+/* Navigation Bar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(10, 10, 12, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1rem 0;
+    transition: all 0.3s ease;
+}
+
+.nav-content {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-family: var(--font-mono);
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* Nav Focus Timer Integration */
+.nav-focus {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 50px;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-accent);
+    transition: all 0.3s ease;
+}
+
+.nav-focus:hover {
+    background: rgba(56, 189, 248, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+}
+
+.focus-icon-nav {
+    width: 14px;
+    height: 14px;
+}
+
+/* Experience Timeline Markers */
+.experience-card {
+    position: relative;
+    padding-left: 2.5rem;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -6px;
+    top: 2rem;
+    width: 12px;
+    height: 12px;
+    background: var(--text-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--text-accent);
+}
+
+.timeline {
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    margin-left: 1rem;
+    padding-left: 1.5rem;
+}
+
+/* Metrics / "Beyond the Desk" Section */
+.metrics-grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.metric-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.metric-panel h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+    color: var(--text-primary);
+}
+
+.duo-badge {
+    transition: transform 0.3s ease, filter 0.3s ease;
+    opacity: 0.85;
+    filter: grayscale(20%);
+}
+
+.duo-badge img {
+    max-width: 250px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.duo-badge:hover {
+    transform: scale(1.03);
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+/* Highlight Footer Button */
+.btn-highlight {
+    background: var(--text-bio);
+    color: #000;
+}
+
+.btn-highlight:hover {
+    background: #10b981; /* Darker emerald */
+    box-shadow: 0 5px 15px rgba(52, 211, 153, 0.4);
+}
+
+/* Override old padding for hero to account for fixed navbar */
+.hero-section {
+    padding-top: 8rem;
+}

@@ -15,26 +15,38 @@
 <body>
     <div class="bg-gradient"></div>
 
-    <!-- Global Focus Timer Entry -->
-    <a href="pomodoro.html" class="focus-trigger" aria-label="Open Focus Timer">
-        <svg class="focus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-        </svg>
-        <span class="focus-text">Focus</span>
-    </a>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <a href="#hero" class="text-accent">RR.</a>
+            </div>
+            <ul class="nav-links" style="display: flex; flex-direction: row; align-items: center;">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#tools">Skills</a></li>
+            </ul>
+            <a href="pomodoro.html" class="nav-focus" aria-label="Open Focus Timer">
+                <svg viewBox="0 0 24 24" fill="none" class="focus-icon-nav" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>Focus Room</span>
+            </a>
+        </div>
+    </nav>
 
     <main class="container">
         <!-- Hero Section -->
         <section id="hero" class="hero-section">
             <h1 class="hero-title">Hi, I'm <span class="text-accent">Rushath</span></h1>
             <p class="hero-subtitle">
-                I use biology, data, and machine learning to explore <span class="text-accent">targeted medicine</span>,
-                <span class="text-bio">artificial proteins</span>, and <span class="text-bio">antimicrobial
-                    resistance</span>.
+                I'm a grad student hacking on projects across <span class="text-accent">biology</span>,
+                <span class="text-bio">machine learning</span>, and <span class="text-bio">data</span>.
             </p>
             <p class="hero-desc">
-                Let's help every organism live healthier lives.
+                Basically: let's build cool things, live healthy, and try not to die. 
             </p>
         </section>
 
@@ -42,21 +54,24 @@
         <section id="about" class="section">
             <h2>🌱 About Me</h2>
             <div class="glass-panel content-card">
-                <p>Biotechnology | Machine Learning | Data Science | Algorithms</p>
+                <p>Grad Student | ML Tinkerer | Bio Nerd</p>
                 <ul class="styled-list">
-                    <li>I’m interested in understanding how complex systems work and in making sense of them through
-                        careful thinking and computation. Most of my time goes into learning machine learning and
-                        algorithms deeply, not just to use them, but to understand why they work and how they can be
-                        explained clearly.</li>
-                    <li>I enjoy writing clean, structured notes because it helps me slow down, think better, and notice
-                        gaps in my understanding. For me, learning feels most meaningful when I can take something
-                        complicated and make it feel simple and intuitive.</li>
-                    <li>I’m especially curious about biological systems and how computation can be used to study them,
-                        from data and models to the assumptions behind them. I like working on ideas that make me pause,
-                        rethink what I know, and gradually build a clearer picture over time.</li>
+                    <li>I spend most of my time trying to figure out how complex systems work. Whether it's a deep learning architecture, the human immune system, or finding a coffee shop that actually opens before 7 AM, I just like figuring things out.</li>
+                    <li>I try to write clean, structured code and notes because it forces me to confront the gaps in my understanding. Plus, my brain feels less chaotic when my functions are well-named. Learning is only fun when you finally get the "oh, that makes sense" moment.</li>
+                    <li>Currently exploring how computation can untangle biological messiness. I enjoy working on ideas that make me pause, stare at a whiteboard for hours, and eventually build a slightly less broken prototype.</li>
                 </ul>
                 <div class="quote-box">
                     <p class="mono">"I try to leave things a little clearer than I found them."</p>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="glass-panel metric-panel">
+                    <h3>Language Learning</h3>
+                    <p class="small-desc" style="margin-bottom: 1rem;">Consistent daily practice.</p>
+                    <a href="https://www.duolingo.com/profile/Rushumon" target="_blank" rel="noopener noreferrer" class="duo-badge">
+                        <img src="https://duolingo-stats-card.vercel.app/api?username=Rushumon" alt="Duolingo Stats">
+                    </a>
                 </div>
             </div>
         </section>
@@ -66,6 +81,7 @@
             <h2>💼 Experience</h2>
             <div class="timeline">
                 <div class="glass-panel experience-card">
+                    <div class="timeline-dot"></div>
                     <div class="exp-header">
                         <h3>Business Consultant</h3>
                         <span class="exp-date">Oct 2022 - Jan 2024</span>
@@ -80,6 +96,7 @@
                     </ul>
                 </div>
                 <div class="glass-panel experience-card">
+                    <div class="timeline-dot"></div>
                     <div class="exp-header">
                         <h3>Business Analyst</h3>
                         <span class="exp-date">Jun 2021 - Sep 2022</span>
@@ -92,6 +109,7 @@
                     </ul>
                 </div>
                 <div class="glass-panel experience-card">
+                    <div class="timeline-dot"></div>
                     <div class="exp-header">
                         <h3>Undergraduate Researcher</h3>
                         <span class="exp-date">2019 - 2021</span>
@@ -104,6 +122,7 @@
                     </ul>
                 </div>
                 <div class="glass-panel experience-card">
+                    <div class="timeline-dot"></div>
                     <div class="exp-header">
                         <h3>Research Trainee</h3>
                         <span class="exp-date">Summer 2019</span>
@@ -121,6 +140,7 @@
                     </ul>
                 </div>
                 <div class="glass-panel experience-card">
+                    <div class="timeline-dot"></div>
                     <div class="exp-header">
                         <h3>Research Intern</h3>
                         <span class="exp-date">Winter 2018</span>
@@ -138,8 +158,35 @@
 
         <!-- Projects Section -->
         <section id="projects" class="section">
-            <h2>🧪 Projects & Research</h2>
+            <h2>🧪 Things I've Tinkered On</h2>
             <div class="grid-2">
+                <div class="glass-panel project-card">
+                    <h3>Multiple Myeloma Disease Model Explorer</h3>
+                    <p class="project-year">Python • Streamlit</p>
+                    <p>An interactive dashboard exploring a microsimulation model of multiple myeloma.</p>
+                    <ul class="styled-list small-text">
+                        <li>Built interactive views for disease progression, treatment dynamics, and mortality hazards.</li>
+                        <li>Implemented real-time parameter sensitivity analyses allowing users to interactively tune variables.</li>
+                    </ul>
+                </div>
+                <div class="glass-panel project-card">
+                    <h3>SpreadOut: Housing Decision Map</h3>
+                    <p class="project-year">React • TypeScript • Three.js</p>
+                    <p>A data-driven 3D visualization comparing livability metrics across U.S. cities.</p>
+                    <ul class="styled-list small-text">
+                        <li>Rendered complex datasets tracking environmental risk, housing affordability, and safety.</li>
+                        <li>Generated an interactive map utilizing composite livability scoring algorithms over spatial data.</li>
+                    </ul>
+                </div>
+                <div class="glass-panel project-card">
+                    <h3>OpenClaw AI Agent System</h3>
+                    <p class="project-year">Python • Oracle Cloud Infrastructure</p>
+                    <p>Self-hosted AI automation system for orchestrating agents on remote compute.</p>
+                    <ul class="styled-list small-text">
+                        <li>Deployed a self-hosted AI capable of orchestrating tools, APIs, and complex LLM workflows.</li>
+                        <li>Provisioned persistent ARM compute on Oracle Cloud Always Free tier with SSH-based CI/CD remote pipelines.</li>
+                    </ul>
+                </div>
                 <div class="glass-panel project-card">
                     <h3>ML for Antimicrobial Resistance</h3>
                     <p class="project-year">NIT Calicut 2021</p>
@@ -208,18 +255,16 @@
 
         <!-- Footer -->
         <footer class="footer section">
-            <p>If you like ML, biology, or building things that matter, feel free to connect with me.</p>
+            <h2>Let's connect.</h2>
+            <p>If you like ML, biology, or building things that matter, feel free to reach out.</p>
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/rushath-rajeev-456b6a18b/" target="_blank"
-                    class="social-btn">LinkedIn</a>
-                <a href="https://drive.google.com/file/d/1lklpjgTPSn_e7KlY-jFm-ukgoJLKwGTR/view?usp=drive_link"
-                    target="_blank" class="social-btn">Resume</a>
+                <a href="https://www.linkedin.com/in/rushath-rajeev-456b6a18b/" target="_blank" class="social-btn">LinkedIn</a>
                 <a href="https://github.com/sekiromike" target="_blank" class="social-btn">GitHub</a>
                 <a href="readings.html" class="social-btn">Readings</a>
-                <a href="multiple-myeloma.html" class="social-btn"
-                    style="background: var(--text-bio); color: #000;">Multiple Myeloma</a>
+                <a href="pomodoro.html" class="social-btn">Focus Room</a>
+                <a href="multiple-myeloma.html" class="social-btn btn-highlight">Multiple Myeloma App</a>
             </div>
-            <p class="copyright">Thanks for visiting 🤍</p>
+            <p class="copyright">Thanks for visiting 🤍 Built with intention.</p>
         </footer>
     </main>
 
