@@ -4,9 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiple Myeloma | Pathophysiology & Forecasting</title>
+    <title>Multiple Myeloma Forecast Studio | US Epidemiology &amp; Treatment Forecast 2026–2035</title>
     <meta name="description"
-        content="Scientific overview of Multiple Myeloma pathophysiology, epidemiology, and treatment landscapes. Access the interactive forecasting model.">
+        content="Interactive US multiple myeloma forecast to 2035: incidence from CDC USCS and Census projections, line-of-therapy patient flow, and regimen mix including D-VRd, Isa-VRd, CAR-T and bispecifics. Evidence as of October 2026.">
+    <meta name="author" content="Rushath Rajeev">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sekiromike.github.io/multiple-myeloma.html">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sekiromike.github.io/multiple-myeloma.html">
+    <meta property="og:title" content="Multiple Myeloma Forecast Studio — US Epidemiology & Treatment Forecast">
+    <meta property="og:description"
+        content="Population model of US myeloma incidence, line-of-therapy patient flow and regimen mix, 1999–2035. Built on registry data and pivotal-trial evidence.">
+    <meta property="og:image" content="https://sekiromike.github.io/favicon.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Multiple Myeloma Forecast Studio">
+    <meta name="twitter:description"
+        content="Interactive US multiple myeloma epidemiology and treatment forecast to 2035.">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://sekiromike.github.io/multiple-myeloma.html",
+          "url": "https://sekiromike.github.io/multiple-myeloma.html",
+          "name": "Multiple Myeloma: Pathophysiology, Epidemiology & Treatment Forecast",
+          "dateModified": "2026-10-04",
+          "author": {"@type": "Person", "name": "Rushath Rajeev", "url": "https://sekiromike.github.io/"},
+          "about": {"@type": "MedicalCondition", "name": "Multiple myeloma", "code": {"@type": "MedicalCode", "code": "C90.0", "codingSystem": "ICD-10"}},
+          "mainEntity": {"@id": "https://myeloma.streamlit.app/#app"}
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://myeloma.streamlit.app/#app",
+          "name": "Multiple Myeloma Forecast Studio",
+          "url": "https://myeloma.streamlit.app",
+          "applicationCategory": "HealthApplication",
+          "operatingSystem": "Web browser",
+          "description": "Interactive US multiple myeloma epidemiology and line-of-therapy forecast, 1999–2035, with live scenario levers.",
+          "author": {"@type": "Person", "name": "Rushath Rajeev"},
+          "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+          "softwareHelp": "https://github.com/Sekiromike/Myeloma"
+        }
+      ]
+    }
+    </script>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -123,31 +165,58 @@
 
                 <h3>Epidemiology</h3>
                 <p>
-                    MM accounts for approximately 10% of all hematologic malignancies. The incidence increases
-                    significantly
-                    with age, with a median age at diagnosis of approximately 69 years. In the United States, the SEER
-                    database reports an age-adjusted incidence rate of roughly 7.1 per 100,000 men and women per year.
-                    Racial disparities are notable, with incidence rates being more than twofold higher in African
-                    Americans
-                    compared to White Americans.
+                    MM accounts for roughly 10% of hematologic malignancies and 1.8% of all new US cancers. Incidence
+                    rises steeply with age; the median age at diagnosis is 69. SEER reports an age-adjusted incidence of
+                    7.3 per 100,000 per year (2018–2022) and 5-year relative survival of 62.4% (2015–2021). An estimated
+                    192,144 Americans were living with myeloma in 2022. The American Cancer Society projects about
+                    <strong>36,000 new cases and 10,850 deaths in 2026</strong>. Incidence in Black Americans is more
+                    than twice that in White Americans.
                 </p>
 
-                <h3>Treatment Landscape</h3>
+                <h3>Treatment Landscape (October 2026)</h3>
                 <p>
-                    The therapeutic landscape for myeloma has evolved rapidly. Standard of care has shifted from simple
-                    alkylating agents to novel combination therapies targeting specific cellular mechanisms:
+                    Care has moved from alkylating agents to multi-mechanism combinations, and T-cell–redirecting
+                    therapies are now moving into earlier lines:
                 </p>
                 <ul class="styled-list" style="margin-top: 1rem;">
-                    <li><strong>Proteasome Inhibitors (PIs):</strong> Bortezomib, Carfilzomib, Ixazomib. Disruption of
+                    <li><strong>Proteasome inhibitors (PIs):</strong> bortezomib, carfilzomib, ixazomib. They disrupt
                         protein homeostasis in plasma cells.</li>
-                    <li><strong>Immunomodulatory Drugs (IMiDs):</strong> Lenalidomide, Pomalidomide. Cereblon-mediated
-                        degradation of Ikaros/Aiolos.</li>
-                    <li><strong>Monoclonal Antibodies (mAbs):</strong> Daratumumab, Isatuximab (Anti-CD38); Elotuzumab
-                        (Anti-SLAMF7).</li>
-                    <li><strong>BCMA-Targeted Therapies:</strong> Chimeric Antigen Receptor (CAR) T-cell therapies and
-                        Bispecific T-cell Engagers (BiTEs) representing the newest frontier in relapsed/refractory
-                        settings.</li>
+                    <li><strong>Immunomodulatory drugs (IMiDs):</strong> lenalidomide, pomalidomide. They drive
+                        cereblon-mediated degradation of Ikaros/Aiolos.</li>
+                    <li><strong>Anti-CD38 quadruplets as first-line standard:</strong> D-VRd for transplant-eligible
+                        patients (PERSEUS; FDA 2024) and for transplant-ineligible patients (CEPHEUS; FDA January 2026),
+                        and Isa-VRd for transplant-ineligible patients (IMROZ; FDA 2024).</li>
+                    <li><strong>BCMA CAR-T:</strong> cilta-cel from first relapse (CARTITUDE-4) and ide-cel from the
+                        third line (KarMMa-3).</li>
+                    <li><strong>Bispecific antibodies:</strong> teclistamab, elranatamab and linvoseltamab (BCMA) and
+                        talquetamab (GPRC5D). Teclistamab + daratumumab became the first bispecific approved at first
+                        relapse (MajesTEC-3; FDA March 2026).</li>
+                    <li><strong>Antibody–drug conjugate:</strong> belantamab mafodotin returned in combination with
+                        bortezomib/dexamethasone (DREAMM-7; FDA October 2025).</li>
                 </ul>
+
+                <h3>Forecast Highlights (base case)</h3>
+                <p>
+                    The <a href="https://myeloma.streamlit.app" target="_blank" rel="noopener"
+                        style="color: var(--text-accent); text-decoration: underline;">Multiple Myeloma Forecast Studio</a>
+                    combines CDC U.S. Cancer Statistics incidence (1999–2022) with U.S. Census Bureau 2023 population
+                    projections. It simulates line-of-therapy patient flow to 2035 using Weibull PFS curves calibrated to
+                    pivotal trials. In the base case:
+                </p>
+                <ul class="styled-list" style="margin-top: 1rem;">
+                    <li><strong>About 33,900 new diagnoses in 2026, rising to about 38,900 by 2035.</strong> Almost all
+                        of the growth comes from population ageing.</li>
+                    <li><strong>About 155,000 patients on active therapy in 2026, rising to about 236,000 by 2035.</strong>
+                        Quadruplet induction and continuous maintenance keep patients on first line longer.</li>
+                    <li><strong>About 55% of treated patients receive an anti-CD38 regimen in 2026.</strong> CAR-T and
+                        bispecific therapies are projected to reach about 48,000 patients by 2035.</li>
+                </ul>
+                <p style="margin-top: 1rem;">
+                    Every assumption can be adjusted live in the app: treated fraction, line attrition, real-world PFS,
+                    mortality and launch uptake. The source code, evidence register and validation tests are on
+                    <a href="https://github.com/Sekiromike/Myeloma" target="_blank" rel="noopener"
+                        style="color: var(--text-accent); text-decoration: underline;">GitHub</a>.
+                </p>
 
                 <div style="margin-top: 1.5rem;">
                     <a href="https://www.nccn.org/guidelines/guidelines-detail?category=1&id=1445" target="_blank"
@@ -190,6 +259,22 @@
                     4. SEER Cancer Stat Facts: Myeloma. National Cancer Institute. <a
                         href="https://seer.cancer.gov/statfacts/html/mulmy.html" target="_blank"
                         style="color: var(--text-accent); text-decoration: underline;">seer.cancer.gov</a>
+                </div>
+                <div class="citation-item">
+                    5. Siegel, R. L., et al. (2026). "Cancer statistics, 2026." <em>CA: A Cancer Journal for
+                    Clinicians</em>.
+                </div>
+                <div class="citation-item">
+                    6. Sonneveld, P., et al. (2024). "Daratumumab, bortezomib, lenalidomide, and dexamethasone for
+                    multiple myeloma (PERSEUS)." <em>New England Journal of Medicine</em>, 390, 301–313.
+                </div>
+                <div class="citation-item">
+                    7. Facon, T., et al. (2024). "Isatuximab, bortezomib, lenalidomide, and dexamethasone for multiple
+                    myeloma (IMROZ)." <em>New England Journal of Medicine</em>, 391, 1597–1609.
+                </div>
+                <div class="citation-item">
+                    8. "Teclistamab plus daratumumab in relapsed or refractory multiple myeloma (MajesTEC-3)." (2025).
+                    <em>New England Journal of Medicine</em>. doi:10.1056/NEJMoa2514663
                 </div>
             </div>
 
