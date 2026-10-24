@@ -1,95 +1,48 @@
-<h1 align="center">Hi, I'm Rushath</h1>
+# Rushath Rajeev
 
-<p align="center">
-  I use biology, data, and machine learning to explore <strong>targeted medicine</strong>, <strong>artificial proteins</strong>, and <strong>antimicrobial resistance</strong>.
-  <br>
-  With the aim of helping all organisms live healthier lives.
-</p>
+Source for my personal site, **[sekiromike.github.io](https://sekiromike.github.io/)**.
 
----
+I use biology, data, and machine learning to study antimicrobial resistance, protein design, and targeted medicine. I'm doing an M.S. in Computer Science at UMass Amherst (2025–2027), and I'm currently a Data Science Co-op at Boehringer Ingelheim (July 2026 – January 2027).
 
-## 🌱 About Me
-I’m someone who enjoys:
-- Working on ML ideas that make me pause and think
-- Learning algorithms and writing clean notes
-- Exploring how biological systems can be understood through computation
+## Featured work
 
-> "Pushing humanity forward — one step at a time."
+- **[Curated resistance gene families outperform Evo 2 embeddings on unseen variants in *E. coli*](https://github.com/Sekiromike/AMR-Resistance-Gene-Detection)**
+  Predicting antibiotic MICs from 11,520 *E. coli* genomes, comparing AMRFinderPlus features with frozen Evo 2 DNA embeddings. Manuscript, not yet peer reviewed.
+- **[Forbes 30 Under 30: After the List](https://forbes-fraudsters.streamlit.app/)**
+  A sourced casebook of honorees who later faced charges, regulator action, or an official investigation. Streamlit app, [source](https://github.com/Sekiromike/Forbes-Fraudsters).
+- **[Myeloma Forecast Studio](https://myeloma.streamlit.app)**
+  A US multiple myeloma epidemiology and line-of-therapy forecast for 1999–2035. [Source](https://github.com/Sekiromike/Myeloma).
+- **[GeneViz](https://github.com/Sekiromike/Gene-Visualization)**, **[Archie-Fetch](https://github.com/Sekiromike/Archie-Fetch)**, **[Math Tutor AI](https://github.com/Sekiromike/Math-Visualizer)**, and more on the site.
 
----
+## Background
 
-## 💼 Experience
+- **M.S. Computer Science**, University of Massachusetts Amherst, 2025–2027
+- **Diploma in Data Science**, Indian Institute of Technology Madras, 2024
+- **B.Tech. Biotechnology**, National Institute of Technology Calicut, 2021
+- Two and a half years in pharmaceutical forecasting and analytics (2021–2024), plus bench research at NIT Calicut and the ICMR Regional Medical Research Centre, Port Blair
 
-### Business Consultant (Oct 2022 - Jan 2024)
-- Synthesized forecasts into executive-level narratives, highlighting risks, opportunities, and strategic options.
-- Acted as a strategic bridge across Brand, CD&A, and Finance teams, providing forecasts that shaped OPEX planning.
-- Designed forecasting workstreams for oncology portfolio with good performance, directly informing commercial strategies for 6+ oncology brands.
+Tools I work with include PyTorch, scikit-learn, XGBoost, protein and genome language models (ESM-2, EvoDiff, Evo 2), embedding models and RAG, Apache Spark, SQL, Snakemake, and Slurm.
 
-### Business Analyst (Jun 2021 - Sep 2022)
-- Applied statistical methods to reconstruct and validate epidemiology datasets for hematology products (~98% accuracy).
-- Mentored 3+ junior analysts in forecasting best practices and workflow automation.
-- Constructed interactive dashboards to monitor KPIs, reducing manual reporting time.
+## The site
 
-### Undergraduate Researcher (2019 - 2021)
-*NIT Calicut | Dept of Bioscience & Engineering*
-- Performed microbiology and molecular biology techniques (aseptic culturing, PCR, electrophoresis, microscopy).
-- Assisted with experimental design, data analysis, and collaborative troubleshooting.
+Plain HTML, CSS, and JavaScript with no build step, served by GitHub Pages.
 
-### Research Trainee (Summer 2019)
-*ICMR - Regional Medical Research Centre | Port Blair*
-- Trained in microbiological, serological, and molecular biological techniques.
-- Performed bacterial culturing (Leptospira), Microscopy, and Microscopic Agglutination Test (MAT).
-- Conducted ELISA, genomic DNA isolation, agarose gel electrophoresis, and PCR.
+| File | What it is |
+|---|---|
+| `index.html` | Main page |
+| `multiple-myeloma.html` | Background notes for the myeloma forecast |
+| `leqembi-case-study.html` | A self-directed commercial analytics case study |
+| `readings.html` | Books and courses I've worked through (also in `readings.md`) |
+| `pomodoro.html` | A focus timer I use while studying |
+| `style.css`, `script.js` | Shared styles, light/dark theme, and navigation |
 
-### Research Intern (Winter 2018)
-*Phycospectrum Environmental Research Centre (PERC)*
-- Studied Phycoremediation of industrial effluents and screened microalgae for waste treatment.
-- Monitored water quality parameters (BOD, COD) and learned algal culturing techniques.
+To preview locally:
 
----
+```bash
+python3 -m http.server 8000
+# then open http://localhost:8000
+```
 
-## 🧪 Projects & Research
+## Contact
 
-### ML for Antimicrobial Resistance (NIT Calicut 2021)
-*Comparative Analysis of Machine Learning Models for Predicting Antimicrobial Resistance Gene Targets.*
-- Collected and preprocessed 5000+ genome-derived sequence data using k-mer counts and embeddings.
-- Trained and compared classifiers (KNN, logistic regression) with deep learning models (CNN, LSTM).
-- Visualized complex gene networks identifying 20+ key gene interactions.
-
-### Bio-leather Development Strategies (NIT Calicut 2020)
-*A meta-analytical report on strategies to develop bio-leather.*
-- Conducted bibliometric review of 1,847 studies.
-- Benchmarked reinforcement strategies to develop a research roadmap.
-
----
-
-## 🎓 Education
-
-**Indian Institute of Technology Madras**
-*Diploma in Data Science (GPA: 8.14/10) • Dec 2024*
-- ML, Calculus, Analytics, Python, Statistics, Business Analytics
-
-**National Institute of Technology Calicut**
-*BTech in Biotechnology (GPA: 7.96/10) • May 2021*
-- Management, Engineering Math, Economics, Bioengineering cores
-
----
-
-## 🧰 Skills & Tools
-**Data Science:** Machine learning, Predictive modeling, Advanced Statistical Analysis, EDA
-**Pharma:** Forecasting, Business Analytics, Market Sizing, Scenario Planning
-
-**Tools:**
-`Python` `Java` `PostgreSQL` `Power BI` `Tableau` `Bash` `PyTorch` `Scikit-learn`
-
----
-
-## 💌 Connect with me
-If you like ML, biology, or building things that matter, feel free to connect with me.
-
-- [LinkedIn](https://www.linkedin.com/in/rushath-rajeev-456b6a18b/)
-- [Readings & References](readings.md)
-
-<p align="center">
-  Thanks for visiting 🤍
-</p>
+The best way to reach me is [LinkedIn](https://www.linkedin.com/in/rushath-rajeev-456b6a18b/).

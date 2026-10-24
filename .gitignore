@@ -1,0 +1,29 @@
+# AI coding assistants and agent tooling
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+.mcp.json
+AGENTS.md
+.agents/
+.codex/
+.gemini/
+GEMINI.md
+.cursor/
+.cursorrules
+.cursorignore
+.windsurf/
+.windsurfrules
+.aider*
+.continue/
+.serena/
+.roo/
+.clinerules
+.github/copilot-instructions.md
+.superpowers/
+docs/superpowers/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

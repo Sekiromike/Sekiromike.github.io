@@ -4,108 +4,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Focus • 25:00</title>
+    <title>25:00 · Focus</title>
+    <meta name="description" content="A simple Pomodoro focus timer with focus sessions, short breaks, and long breaks.">
+    <link rel="canonical" href="https://sekiromike.github.io/pomodoro.html">
+    <meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0e1012" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/png" href="favicon.png">
-
-    <!-- Fonts -->
+    <script>try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Space+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="pomodoro.css">
 </head>
 
-<body class="theme-dark">
-    <main class="focus-container">
-        <!-- Progress Ring Container -->
-        <div class="progress-ring-block">
-            <svg class="progress-ring" width="300" height="300">
-                <circle class="progress-ring__circle-bg" stroke="currentColor" stroke-width="4" fill="transparent"
-                    r="140" cx="150" cy="150" />
-                <circle class="progress-ring__circle" stroke="currentColor" stroke-width="4" fill="transparent" r="140"
-                    cx="150" cy="150" />
-            </svg>
+<body class="timer-page" data-mode="focus">
+    <header>
+        <div class="nav container">
+            <a href="index.html" class="nav-brand" aria-label="Rushath Rajeev, back to home"><span class="nav-mark" aria-hidden="true">RR</span>Rushath Rajeev</a>
+            <div class="nav-right">
+                <button id="settings-toggle" class="icon-btn" type="button" aria-label="Timer settings" aria-haspopup="dialog">
+                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
+                </button>
+                <button class="icon-btn theme-toggle" type="button" aria-label="Switch theme">
+                    <svg class="icon-moon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"/></svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
 
-            <!-- Timer Display -->
-            <div class="timer-display">
-                <div id="mode-label" class="mode-label">Focus</div>
-                <div id="time-display" class="time-digits">25:00</div>
-                <div id="session-counter" class="session-counter">Session 1/4</div>
+    <main class="timer">
+        <h1 class="sr-only">Focus timer</h1>
+
+        <div class="mode-switch" role="group" aria-label="Timer mode">
+            <button type="button" data-mode="focus" aria-pressed="true">Focus</button>
+            <button type="button" data-mode="short" aria-pressed="false">Short break</button>
+            <button type="button" data-mode="long" aria-pressed="false">Long break</button>
+        </div>
+
+        <div class="ring">
+            <svg class="ring-svg" viewBox="0 0 300 300" aria-hidden="true">
+                <circle class="ring-track" r="140" cx="150" cy="150" />
+                <circle class="ring-progress" r="140" cx="150" cy="150" />
+            </svg>
+            <div class="ring-readout">
+                <p id="mode-label" class="label">Focus</p>
+                <p id="time-display" class="time" role="timer">25:00</p>
+                <p id="session-counter" class="session">Session 1 of 4</p>
             </div>
         </div>
 
-        <!-- Controls -->
-        <div class="controls">
-            <button id="toggle-btn" class="btn-primary" aria-label="Start Timer">
-                Start
-            </button>
-            <button id="reset-btn" class="btn-secondary" aria-label="Reset Timer">
-                Reset
-            </button>
+        <div class="timer-controls">
+            <button id="toggle-btn" class="btn btn-primary" type="button">Start</button>
+            <button id="reset-btn" class="btn btn-ghost" type="button">Reset</button>
         </div>
 
+        <p class="shortcuts"><kbd>Space</kbd> start or pause <span aria-hidden="true">·</span> <kbd>R</kbd> reset</p>
     </main>
 
-    <!-- Settings Toggle -->
-    <div class="bottom-actions">
-        <button id="settings-toggle" class="icon-btn" aria-label="Settings">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path
-                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-                </path>
-            </svg>
-        </button>
-        <a href="index.html" class="icon-btn" aria-label="Back to Home">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
-        </a>
-    </div>
-
-    <!-- Settings Modal -->
-    <div id="settings-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Settings</h2>
-                <button id="close-settings" class="close-btn">&times;</button>
+    <dialog id="settings-modal" class="settings" aria-labelledby="settings-title">
+        <form method="dialog" novalidate>
+            <div class="settings-head">
+                <h2 id="settings-title">Timer settings</h2>
+                <button class="icon-btn" value="close" aria-label="Close settings">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+                </button>
             </div>
 
             <div class="setting-row">
-                <label>Focus Duration</label>
-                <input type="number" id="setting-focus" min="1" max="90" value="25">
+                <label for="setting-focus">Focus, minutes</label>
+                <input type="number" id="setting-focus" min="1" max="90" value="25" inputmode="numeric" autofocus>
             </div>
-
             <div class="setting-row">
-                <label>Short Break</label>
-                <input type="number" id="setting-short" min="1" max="30" value="5">
+                <label for="setting-short">Short break, minutes</label>
+                <input type="number" id="setting-short" min="1" max="30" value="5" inputmode="numeric">
             </div>
-
             <div class="setting-row">
-                <label>Long Break</label>
-                <input type="number" id="setting-long" min="1" max="60" value="15">
+                <label for="setting-long">Long break, minutes</label>
+                <input type="number" id="setting-long" min="1" max="60" value="15" inputmode="numeric">
             </div>
-
             <div class="setting-row">
-                <label>Long Break Interval</label>
-                <input type="number" id="setting-interval" min="1" max="10" value="4">
+                <label for="setting-interval">Sessions before a long break</label>
+                <input type="number" id="setting-interval" min="1" max="10" value="4" inputmode="numeric">
             </div>
-
-            <div class="setting-row toggle-row">
-                <label for="setting-sound">Sound</label>
+            <div class="setting-row">
+                <label for="setting-sound">Play a sound when time is up</label>
                 <input type="checkbox" id="setting-sound">
             </div>
-
-            <div class="setting-row toggle-row">
-                <label for="setting-notifications">Notifications</label>
+            <div class="setting-row">
+                <label for="setting-notifications">Show a desktop notification</label>
                 <input type="checkbox" id="setting-notifications">
             </div>
-        </div>
-    </div>
 
+            <button class="btn btn-primary settings-done" value="done">Done</button>
+        </form>
+    </dialog>
+
+    <script src="script.js"></script>
     <script src="pomodoro.js"></script>
 </body>
 

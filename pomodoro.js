@@ -1,49 +1,62 @@
 /**
- * Pomodoro Timer - Zen Mode
+ * Focus timer: a Pomodoro clock with focus, short-break and long-break modes.
+ * Time is measured against a fixed end time, so the count stays correct even
+ * when the browser throttles timers in a background tab.
  */
 
-const CONFIG = {
-    // Default durations in minutes
-    focusDuration: 25,
-    shortBreakDuration: 5,
-    longBreakDuration: 15,
-    longBreakInterval: 4,
-    colors: {
-        focus: '#e0e0e0',
-        short: '#38bdf8',
-        long: '#34d399'
-    }
+const MODES = {
+    focus: 'Focus',
+    short: 'Short break',
+    long: 'Long break'
+};
+
+// [min, max] for each numeric setting, matching the inputs in pomodoro.html
+const LIMITS = {
+    focus: [1, 90],
+    short: [1, 30],
+    long: [1, 60],
+    interval: [1, 10]
 };
 
 const STATE = {
-    mode: 'focus', // 'focus', 'short', 'long'
-    timeLeft: CONFIG.focusDuration * 60,
+    mode: 'focus',
+    timeLeft: 25 * 60,
     isRunning: false,
-    sessionCount: 0,
-    settings: {
-        focus: CONFIG.focusDuration,
-        short: CONFIG.shortBreakDuration,
-        long: CONFIG.longBreakDuration,
-        interval: CONFIG.longBreakInterval,
-        sound: false,
-        notifications: false,
-        theme: 'dark' // Not used yet but stored
-    },
+    sessionCount: 0, // completed focus sessions
+    endTime: null,
     timerId: null,
-    endTime: null
+    settings: {
+        focus: 25,
+        short: 5,
+        long: 15,
+        interval: 4,
+        sound: false,
+        notifications: false
+    }
 };
 
-// DOM Elements
+const hasNotifications = 'Notification' in window;
+
+const storage = {
+    get(key) {
+        try { return localStorage.getItem(key); } catch (error) { return null; }
+    },
+    set(key, value) {
+        try { localStorage.setItem(key, value); } catch (error) { /* storage blocked */ }
+    }
+};
+
 const elements = {
+    page: document.body,
     timeDisplay: document.getElementById('time-display'),
     modeLabel: document.getElementById('mode-label'),
     sessionCounter: document.getElementById('session-counter'),
     toggleBtn: document.getElementById('toggle-btn'),
     resetBtn: document.getElementById('reset-btn'),
-    progressCircle: document.querySelector('.progress-ring__circle'),
+    progress: document.querySelector('.ring-progress'),
+    modeButtons: [...document.querySelectorAll('.mode-switch button')],
     settingsToggle: document.getElementById('settings-toggle'),
     settingsModal: document.getElementById('settings-modal'),
-    closeSettings: document.getElementById('close-settings'),
     inputs: {
         focus: document.getElementById('setting-focus'),
         short: document.getElementById('setting-short'),
@@ -54,289 +67,305 @@ const elements = {
     }
 };
 
-// Progress Ring Setup
-const radius = elements.progressCircle.r.baseVal.value;
-const circumference = radius * 2 * Math.PI;
-elements.progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
-elements.progressCircle.style.strokeDashoffset = circumference;
+// Progress ring. The SVG scales through its viewBox, so the radius in user
+// units never changes and the circumference only needs computing once.
+const circumference = 2 * Math.PI * elements.progress.r.baseVal.value;
+elements.progress.style.strokeDasharray = `${circumference} ${circumference}`;
 
-function setProgress(percent) {
-    const offset = circumference - (percent / 100) * circumference;
-    elements.progressCircle.style.strokeDashoffset = offset;
+function setProgress(fraction) {
+    const clamped = Math.min(1, Math.max(0, fraction));
+    elements.progress.style.strokeDashoffset = String(circumference * (1 - clamped));
 }
 
-// Initialization
-function init() {
-    loadSettings();
-    updateDisplay();
-    setupEventListeners();
-    // Removed requestNotificationPermission from here to avoid browser blocking
+function durationOf(mode) {
+    return STATE.settings[mode] * 60;
 }
 
+function clampSetting(key, value) {
+    const [min, max] = LIMITS[key];
+    const number = parseInt(value, 10);
+    if (Number.isNaN(number)) return STATE.settings[key];
+    return Math.min(max, Math.max(min, number));
+}
+
+// ---------- Settings ----------
 function loadSettings() {
-    const saved = localStorage.getItem('pomodoroItems');
+    const saved = storage.get('pomodoroItems');
     if (saved) {
         try {
             const parsed = JSON.parse(saved);
-            STATE.settings = { ...STATE.settings, ...parsed };
-            STATE.sessionCount = parseInt(localStorage.getItem('pomodoroSessionCount') || '0', 10);
-        } catch (e) {
-            console.error('Failed to load settings', e);
+            Object.keys(LIMITS).forEach(key => {
+                if (key in parsed) STATE.settings[key] = clampSetting(key, parsed[key]);
+            });
+            STATE.settings.sound = Boolean(parsed.sound);
+            STATE.settings.notifications = Boolean(parsed.notifications);
+        } catch (error) {
+            console.error('Failed to load timer settings', error);
         }
     }
+    STATE.sessionCount = parseInt(storage.get('pomodoroSessionCount') || '0', 10) || 0;
+    writeInputs();
+}
 
-    // Apply settings to inputs
-    elements.inputs.focus.value = STATE.settings.focus;
-    elements.inputs.short.value = STATE.settings.short;
-    elements.inputs.long.value = STATE.settings.long;
-    elements.inputs.interval.value = STATE.settings.interval;
+function writeInputs() {
+    Object.keys(LIMITS).forEach(key => { elements.inputs[key].value = STATE.settings[key]; });
     elements.inputs.sound.checked = STATE.settings.sound;
-    elements.inputs.notifications.checked = STATE.settings.notifications;
-
-    // Reset timer to current settings if not running
-    if (!STATE.isRunning) {
-        resetTimer(false);
+    elements.inputs.notifications.checked = hasNotifications && STATE.settings.notifications;
+    if (!hasNotifications) {
+        elements.inputs.notifications.disabled = true;
+        elements.inputs.notifications.title = 'This browser does not support notifications';
     }
 }
 
-function saveSettings() {
-    STATE.settings.focus = parseInt(elements.inputs.focus.value);
-    STATE.settings.short = parseInt(elements.inputs.short.value);
-    STATE.settings.long = parseInt(elements.inputs.long.value);
-    STATE.settings.interval = parseInt(elements.inputs.interval.value);
-    STATE.settings.sound = elements.inputs.sound.checked;
-    STATE.settings.notifications = elements.inputs.notifications.checked;
+function applySettings() {
+    const previousDuration = durationOf(STATE.mode);
 
-    localStorage.setItem('pomodoroItems', JSON.stringify(STATE.settings));
-    localStorage.setItem('pomodoroSessionCount', STATE.sessionCount);
+    Object.keys(LIMITS).forEach(key => {
+        STATE.settings[key] = clampSetting(key, elements.inputs[key].value);
+    });
+    STATE.settings.sound = elements.inputs.sound.checked;
+    STATE.settings.notifications = hasNotifications && elements.inputs.notifications.checked;
+    writeInputs();
+
+    storage.set('pomodoroItems', JSON.stringify(STATE.settings));
+
+    // A running or paused session keeps its time; a new length for the
+    // current mode only applies straight away when the timer is idle.
+    const isIdle = !STATE.isRunning && STATE.timeLeft === previousDuration;
+    if (isIdle && durationOf(STATE.mode) !== previousDuration) {
+        resetTimer();
+    } else {
+        updateDisplay();
+    }
 }
 
-// Timer Logic
+// ---------- Timer ----------
 function startTimer() {
     if (STATE.isRunning) return;
-
-    // If starting from pause, calculate new end time
-    // If starting fresh, set end time based on duration
-    const now = Date.now();
-    STATE.endTime = now + (STATE.timeLeft * 1000);
-
+    STATE.endTime = Date.now() + STATE.timeLeft * 1000;
     STATE.isRunning = true;
-    STATE.timerId = setInterval(tick, 100); // Check every 100ms for smoothness
-
+    STATE.timerId = setInterval(tick, 100);
     updateControls();
 }
 
 function pauseTimer() {
     if (!STATE.isRunning) return;
-
     clearInterval(STATE.timerId);
     STATE.isRunning = false;
     updateControls();
 }
 
-function resetTimer(autoStart = false) {
+function toggleTimer() {
+    if (STATE.isRunning) {
+        pauseTimer();
+        return;
+    }
+    // Browsers only allow audio and permission prompts after a user gesture
+    unlockAudio();
+    if (STATE.settings.notifications && hasNotifications && Notification.permission === 'default') {
+        Notification.requestPermission();
+    }
+    startTimer();
+}
+
+function resetTimer() {
     clearInterval(STATE.timerId);
     STATE.isRunning = false;
-
-    // Determine duration based on mode
-    let duration;
-    if (STATE.mode === 'focus') duration = STATE.settings.focus;
-    else if (STATE.mode === 'short') duration = STATE.settings.short;
-    else if (STATE.mode === 'long') duration = STATE.settings.long;
-
-    STATE.timeLeft = duration * 60;
-
+    STATE.timeLeft = durationOf(STATE.mode);
+    setProgress(1);
     updateDisplay();
     updateControls();
-    setProgress(0); // Start full
-    elements.progressCircle.style.strokeDashoffset = 0;
-
-    if (autoStart) startTimer();
 }
 
 function tick() {
-    const now = Date.now();
-    const remaining = Math.ceil((STATE.endTime - now) / 1000);
+    const msLeft = Math.max(0, STATE.endTime - Date.now());
+    const secondsLeft = Math.ceil(msLeft / 1000);
 
-    if (remaining !== STATE.timeLeft) {
-        STATE.timeLeft = remaining;
+    setProgress(msLeft / 1000 / durationOf(STATE.mode));
+
+    if (secondsLeft !== STATE.timeLeft) {
+        STATE.timeLeft = secondsLeft;
         updateDisplay();
-
-        // Update Progress
-        const totalTime = (STATE.mode === 'focus' ? STATE.settings.focus :
-            STATE.mode === 'short' ? STATE.settings.short :
-                STATE.settings.long) * 60;
-
-        // Calculate percentage remaining to show depletion
-        const percentRemaining = (STATE.timeLeft / totalTime) * 100;
-        setProgress(percentRemaining);
     }
 
-    if (STATE.timeLeft <= 0) {
-        completeTimer();
-    }
+    if (msLeft <= 0) completeTimer();
 }
 
 function completeTimer() {
+    const finished = STATE.mode;
     clearInterval(STATE.timerId);
     STATE.isRunning = false;
-    STATE.timeLeft = 0;
-    updateDisplay();
-    setProgress(0); // Empty
+    notify(finished);
 
-    playNotification();
-
-    // Handle Mode Switch
-    if (STATE.mode === 'focus') {
-        STATE.sessionCount++;
-        localStorage.setItem('pomodoroSessionCount', STATE.sessionCount);
-
-        if (STATE.sessionCount % STATE.settings.interval === 0) {
-            switchMode('long');
-        } else {
-            switchMode('short');
-        }
+    if (finished === 'focus') {
+        STATE.sessionCount += 1;
+        storage.set('pomodoroSessionCount', String(STATE.sessionCount));
+        switchMode(STATE.sessionCount % STATE.settings.interval === 0 ? 'long' : 'short');
     } else {
         switchMode('focus');
     }
-
-    updateControls();
 }
 
 function switchMode(mode) {
     STATE.mode = mode;
-    // Update colors
-    let color;
-    if (mode === 'focus') color = CONFIG.colors.focus;
-    else if (mode === 'short') color = CONFIG.colors.short;
-    else color = CONFIG.colors.long;
+    elements.page.dataset.mode = mode;
+    elements.modeButtons.forEach(button => {
+        button.setAttribute('aria-pressed', String(button.dataset.mode === mode));
+    });
+    resetTimer();
+}
 
-    elements.progressCircle.style.stroke = color;
-    // Reset timer for new mode
-    resetTimer(false);
+// ---------- Display ----------
+function formatTime(totalSeconds) {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${String(seconds).padStart(2, '0')}`;
 }
 
 function updateDisplay() {
-    const m = Math.floor(STATE.timeLeft / 60);
-    const s = STATE.timeLeft % 60;
-    const timeStr = `${m}:${s < 10 ? '0' : ''}${s}`;
+    const time = formatTime(STATE.timeLeft);
+    const { interval } = STATE.settings;
+    const doneInCycle = STATE.sessionCount % interval;
 
-    elements.timeDisplay.textContent = timeStr;
-    document.title = `${timeStr} • ${STATE.mode.charAt(0).toUpperCase() + STATE.mode.slice(1)}`;
+    elements.timeDisplay.textContent = time;
+    elements.modeLabel.textContent = MODES[STATE.mode];
+    document.title = `${time} · ${MODES[STATE.mode]}`;
 
-    elements.modeLabel.textContent = STATE.mode === 'focus' ? 'Focus' :
-        STATE.mode === 'short' ? 'Short Break' : 'Long Break';
-
-    elements.sessionCounter.textContent = `Session ${STATE.sessionCount + 1}/${STATE.settings.interval}`;
+    if (STATE.mode === 'focus') {
+        elements.sessionCounter.textContent = `Session ${doneInCycle + 1} of ${interval}`;
+    } else {
+        const done = STATE.mode === 'long' && doneInCycle === 0 ? interval : doneInCycle;
+        elements.sessionCounter.textContent = `${done} of ${interval} ${interval === 1 ? 'session' : 'sessions'} done`;
+    }
 }
 
 function updateControls() {
     elements.toggleBtn.textContent = STATE.isRunning ? 'Pause' : 'Start';
 }
 
-function playNotification() {
-    if (STATE.settings.sound) {
-        // Simple Beep using Audiocontext
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
+// ---------- Sound and notifications ----------
+let audioContext = null;
 
-        oscillator.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
+function unlockAudio() {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return null;
+    if (!audioContext) audioContext = new AudioContextClass();
+    if (audioContext.state === 'suspended') audioContext.resume();
+    return audioContext;
+}
 
+function playChime() {
+    const ctx = unlockAudio();
+    if (!ctx) return;
+    // Two soft tones, a fifth apart
+    [660, 990].forEach((frequency, index) => {
+        const start = ctx.currentTime + index * 0.18;
+        const oscillator = ctx.createOscillator();
+        const gain = ctx.createGain();
         oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.1);
+        oscillator.frequency.setValueAtTime(frequency, start);
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(0.12, start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.6);
+        oscillator.connect(gain);
+        gain.connect(ctx.destination);
+        oscillator.start(start);
+        oscillator.stop(start + 0.65);
+    });
+}
 
-        gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+function notify(finishedMode) {
+    if (STATE.settings.sound) playChime();
 
-        oscillator.start();
-        oscillator.stop(audioCtx.currentTime + 0.5);
-    }
-
-    if (STATE.settings.notifications && Notification.permission === 'granted') {
-        new Notification('Timer Complete', {
-            body: `${STATE.mode === 'focus' ? 'Focus session' : 'Break'} finished!`,
+    if (STATE.settings.notifications && hasNotifications && Notification.permission === 'granted') {
+        new Notification(finishedMode === 'focus' ? 'Focus session done' : 'Break over', {
+            body: finishedMode === 'focus' ? 'Time for a break.' : 'Ready for the next focus session?',
             icon: 'favicon.png'
         });
     }
 }
 
-function requestNotificationPermission() {
-    if (STATE.settings.notifications && Notification.permission === 'default') {
-        Notification.requestPermission();
+// ---------- Settings dialog ----------
+function openSettings() {
+    writeInputs();
+    if (typeof elements.settingsModal.showModal === 'function') {
+        elements.settingsModal.showModal();
+    } else {
+        elements.settingsModal.setAttribute('open', '');
     }
 }
 
-// Event Listeners
+function settingsOpen() {
+    return elements.settingsModal.hasAttribute('open');
+}
+
+// ---------- Events ----------
 function setupEventListeners() {
-    elements.toggleBtn.addEventListener('click', () => {
-        if (STATE.isRunning) pauseTimer();
-        else {
-            // Request permissions on user interaction
-            if (STATE.settings.notifications && Notification.permission === 'default') {
-                Notification.requestPermission();
+    elements.toggleBtn.addEventListener('click', toggleTimer);
+    elements.resetBtn.addEventListener('click', resetTimer);
+
+    elements.modeButtons.forEach(button => {
+        button.addEventListener('click', () => switchMode(button.dataset.mode));
+    });
+
+    elements.settingsToggle.addEventListener('click', openSettings);
+
+    // Settings are applied on every way out of the dialog. applySettings is
+    // idempotent, so it is safe when more than one of these fires.
+    const settingsForm = elements.settingsModal.querySelector('form');
+    settingsForm.addEventListener('submit', event => {
+        applySettings();
+        if (typeof elements.settingsModal.showModal !== 'function') {
+            event.preventDefault();
+            elements.settingsModal.removeAttribute('open');
+        }
+    });
+    elements.settingsModal.addEventListener('cancel', applySettings);
+    elements.settingsModal.addEventListener('close', applySettings);
+
+    // Clicking the dimmed backdrop closes the dialog
+    elements.settingsModal.addEventListener('click', event => {
+        if (event.target !== elements.settingsModal) return;
+        applySettings();
+        elements.settingsModal.close();
+    });
+
+    elements.inputs.sound.addEventListener('change', event => {
+        if (event.target.checked) playChime();
+    });
+
+    elements.inputs.notifications.addEventListener('change', event => {
+        if (!event.target.checked || !hasNotifications) return;
+        if (Notification.permission === 'default') {
+            // Older Safari takes a callback and returns nothing
+            const request = Notification.requestPermission(permission => {
+                if (permission !== 'granted') event.target.checked = false;
+            });
+            if (request && request.then) {
+                request.then(permission => {
+                    if (permission !== 'granted') event.target.checked = false;
+                });
             }
-
-            // Resume/Start AudioContext (browser requirement for autoplay)
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (AudioContext) {
-                const ctx = new AudioContext();
-                ctx.close(); // Dummy call to unlock audio
-            }
-
-            startTimer();
+        } else if (Notification.permission === 'denied') {
+            event.target.checked = false;
+            event.target.title = 'Notifications are blocked for this site in your browser settings';
         }
     });
 
-    elements.resetBtn.addEventListener('click', () => resetTimer(false));
+    document.addEventListener('keydown', event => {
+        if (settingsOpen() || event.metaKey || event.ctrlKey || event.altKey) return;
+        // Let focused controls handle their own keys
+        if (event.target.closest('button, a, input, select, textarea')) return;
 
-    // Settings Logic
-    elements.settingsToggle.addEventListener('click', () => {
-        elements.settingsModal.classList.remove('hidden');
-    });
-
-    elements.closeSettings.addEventListener('click', () => {
-        saveSettings();
-        elements.settingsModal.classList.add('hidden');
-        resetTimer(false); // Apply changes
-    });
-
-    // Close modal on outside click
-    elements.settingsModal.addEventListener('click', (e) => {
-        if (e.target === elements.settingsModal) {
-            saveSettings();
-            elements.settingsModal.classList.add('hidden');
-            resetTimer(false);
-        }
-    });
-
-    // Sound Test on Toggle
-    elements.inputs.sound.addEventListener('change', (e) => {
-        if (e.target.checked) {
-            playNotification(); // Test beep
-        }
-    });
-
-    // Notification Permission on Toggle
-    elements.inputs.notifications.addEventListener('change', (e) => {
-        if (e.target.checked && Notification.permission === 'default') {
-            Notification.requestPermission();
-        }
-    });
-
-    // Keyboard Shortcuts
-    document.addEventListener('keydown', (e) => {
-        if (e.code === 'Space') {
-            e.preventDefault(); // Prevent scrolling
-            if (STATE.isRunning) pauseTimer();
-            else startTimer();
-        } else if (e.code === 'KeyR') {
-            resetTimer(false);
+        if (event.code === 'Space') {
+            event.preventDefault();
+            toggleTimer();
+        } else if (event.code === 'KeyR') {
+            resetTimer();
         }
     });
 }
 
-// Start
-init();
+loadSettings();
+setupEventListeners();
+resetTimer();

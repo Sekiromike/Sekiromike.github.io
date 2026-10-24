@@ -1,291 +1,240 @@
-/* Pomodoro Theme - Zen Mode */
+/* Focus timer. Builds on style.css for tokens, buttons, and the theme toggle;
+   this file only adds the timer layout and a color per mode. */
 :root {
-    --bg-primary: #050505;
-    --text-primary: #e0e0e0;
-    --text-secondary: #555555;
-    --accent-focus: #e0e0e0;
-    /* Clean white/grey for focus */
-    --accent-short: #38bdf8;
-    /* Soft blue */
-    --accent-long: #34d399;
-    /* Soft green */
-    --ring-bg: #1a1a1a;
-    --font-main: 'Outfit', sans-serif;
-    --font-mono: 'Space Mono', monospace;
-    --transition-slow: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    --mode-short: #2f6fc4;
+    --mode-long: #a3660f;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --mode-short: #7fa9f0;
+        --mode-long: #e2a64c;
+    }
 }
 
-body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: var(--font-main);
-    height: 100vh;
+:root[data-theme="dark"] {
+    --mode-short: #7fa9f0;
+    --mode-long: #e2a64c;
+}
+
+.timer-page {
+    --mode-color: var(--accent);
     display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    transition: background-color 0.8s ease;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
 }
 
-/* Ambient Noise Overlay (Optional Texture) */
-.noise-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.03;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    z-index: -1;
+.timer-page[data-mode="short"] {
+    --mode-color: var(--mode-short);
 }
 
-.focus-container {
-    text-align: center;
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    padding: 2rem;
+.timer-page[data-mode="long"] {
+    --mode-color: var(--mode-long);
+}
+
+.timer {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
-}
-
-/* Progress Ring */
-.progress-ring-block {
-    position: relative;
-    display: flex;
     justify-content: center;
-    align-items: center;
+    gap: 36px;
+    padding: 24px 16px 64px;
 }
 
-.progress-ring {
+/* ---------- Mode switch ---------- */
+.mode-switch {
+    display: inline-flex;
+    padding: 4px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--surface);
+}
+
+.mode-switch button {
+    padding: 8px 16px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-2);
+    font: inherit;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: color 0.15s, background-color 0.15s;
+}
+
+.mode-switch button:hover {
+    color: var(--ink);
+}
+
+.mode-switch button[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--bg);
+}
+
+/* ---------- Ring ---------- */
+.ring {
+    position: relative;
+    width: min(320px, 78vw);
+    aspect-ratio: 1;
+}
+
+.ring-svg {
+    width: 100%;
+    height: 100%;
     transform: rotate(-90deg);
 }
 
-.progress-ring__circle-bg {
-    stroke: var(--ring-bg);
+.ring-track,
+.ring-progress {
+    fill: none;
+    stroke-width: 5;
 }
 
-.progress-ring__circle {
-    stroke: var(--accent-focus);
+.ring-track {
+    stroke: var(--line);
+}
+
+.ring-progress {
+    stroke: var(--mode-color);
     stroke-linecap: round;
-    transition: stroke-dashoffset 1s linear, stroke 0.6s ease;
+    transition: stroke-dashoffset 0.25s linear, stroke 0.4s ease;
 }
 
-/* Timer Display */
-.timer-display {
+.ring-readout {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     text-align: center;
 }
 
-.time-digits {
-    font-family: var(--font-mono);
-    font-size: 4rem;
-    font-weight: 300;
-    letter-spacing: -2px;
+.ring-readout .label {
+    color: var(--mode-color);
+    transition: color 0.4s ease;
+}
+
+.time {
+    font-size: clamp(3.2rem, 15vw, 4.75rem);
+    font-weight: 400;
     line-height: 1;
-    margin: 0.5rem 0;
+    letter-spacing: -0.035em;
     font-variant-numeric: tabular-nums;
 }
 
-.mode-label {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    color: var(--text-secondary);
-    opacity: 0.8;
+.session {
+    font-size: 0.85rem;
+    color: var(--ink-3);
 }
 
-.session-counter {
+/* ---------- Controls ---------- */
+.timer-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.timer-controls .btn {
+    min-width: 116px;
+    justify-content: center;
+}
+
+.shortcuts {
     font-size: 0.8rem;
-    color: var(--text-secondary);
-    margin-top: 0.5rem;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    color: var(--ink-3);
 }
 
-.focus-container:hover .session-counter {
-    opacity: 0.6;
+kbd {
+    display: inline-block;
+    padding: 1px 6px;
+    border: 1px solid var(--line-strong);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-2);
 }
 
-/* Controls */
-.controls {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
+@media (hover: none) {
+    .shortcuts {
+        display: none;
+    }
 }
 
-button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-family: var(--font-main);
-    color: var(--text-primary);
-    transition: var(--transition-slow);
+/* ---------- Settings dialog ---------- */
+.settings {
+    width: min(380px, calc(100vw - 32px));
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: 0 24px 64px -24px rgba(0, 0, 0, 0.35);
 }
 
-.btn-primary {
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    padding: 0.8rem 2.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
+.settings form {
+    padding: 26px 28px 28px;
 }
 
-.btn-primary:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.3);
+.settings::backdrop {
+    background: rgba(10, 12, 14, 0.45);
+    backdrop-filter: blur(3px);
 }
 
-.btn-secondary {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    padding: 0.8rem 1rem;
-}
-
-.btn-secondary:hover {
-    color: var(--text-primary);
-}
-
-/* Settings & Home Icons */
-.bottom-actions {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
-    display: flex;
-    gap: 1rem;
-    opacity: 0.3;
-    transition: opacity 0.3s ease;
-}
-
-.bottom-actions:hover {
-    opacity: 1;
-}
-
-.icon-btn {
-    color: var(--text-primary);
-    padding: 0.5rem;
-    border-radius: 50%;
+.settings-head {
     display: flex;
     align-items: center;
-    justify-content: center;
-}
-
-.icon-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
-}
-
-a.icon-btn {
-    text-decoration: none;
-}
-
-/* Settings Modal */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
-    visibility: visible;
-    transition: all 0.3s ease;
-    z-index: 100;
-}
-
-.modal-overlay.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.modal-content {
-    background: #111;
-    border: 1px solid #222;
-    padding: 2rem;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 350px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-}
-
-.modal-header {
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 14px;
 }
 
-.modal-header h2 {
-    font-size: 1.2rem;
-    font-weight: 500;
-}
-
-.close-btn {
-    font-size: 1.5rem;
-    line-height: 1;
-    padding: 0 0.5rem;
+.settings-head h2 {
+    font-size: 1.45rem;
 }
 
 .setting-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
 }
 
 .setting-row label {
-    font-size: 0.9rem;
-    color: #888;
+    font-size: 0.93rem;
+    color: var(--ink-2);
 }
 
 .setting-row input[type="number"] {
-    background: #000;
-    border: 1px solid #333;
-    color: #fff;
-    padding: 0.5rem;
-    border-radius: 6px;
-    width: 60px;
-    text-align: center;
+    width: 72px;
+    padding: 7px 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--ink);
     font-family: var(--font-mono);
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 .setting-row input[type="checkbox"] {
-    accent-color: var(--accent-focus);
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
 }
 
-/* Media Queries */
-@media (max-width: 480px) {
-    .time-digits {
-        font-size: 3rem;
-    }
+.setting-row input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
-    .progress-ring {
-        width: 250px;
-        height: 250px;
-    }
-
-    .progress-ring__circle,
-    .progress-ring__circle-bg {
-        r: 115;
-        cx: 125;
-        cy: 125;
-    }
+.settings-done {
+    width: 100%;
+    justify-content: center;
+    margin-top: 18px;
 }

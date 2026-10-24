@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leqembi SC Case Study · Rushath Rajeev</title>
+  <meta name="description" content="A self-directed commercial analytics proposal for prioritizing physicians in the IV-to-subcutaneous transition for Leqembi in early Alzheimer's disease.">
+  <link rel="canonical" href="https://sekiromike.github.io/leqembi-case-study.html">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500&display=swap">
+  <style>
+    :root {
+      --bg:           #fbfaf7;
+      --white:        #ffffff;
+      --text-dark:    #16181b;
+      --text-muted:   #5d626a;
+      --primary:      #16181b;
+      --accent:       #0b6a61;
+      --accent-light: #e3f0ec;
+      --border:       #e7e3dc;
+      --success:      #10b981;
+      --danger:       #ef4444;
+      --warning:      #f59e0b;
+      --purple:       #8b5cf6;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,.08);
+      --shadow-md:    0 4px 12px rgba(0,0,0,.1);
+      --radius:       10px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text-dark); line-height: 1.65; padding-bottom: 80px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 200; }
+    .nav-inner { max-width: 1180px; margin: 0 auto; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .back-link { display: flex; align-items: center; gap: 8px; font-size: .9rem; font-weight: 500; color: var(--text-muted); transition: color .2s; }
+    .back-link:hover { color: var(--primary); text-decoration: none; }
+    .nav-badge { font-size: .8rem; font-weight: 600; color: var(--text-muted); letter-spacing: .5px; }
+
+    /* PAGE */
+    .page { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+    /* TYPOGRAPHY */
+    h1, h2 { font-family: 'Newsreader', Georgia, serif; letter-spacing: -0.01em; }
+    h2 { font-size: 1.5rem; font-weight: 500; color: var(--primary); margin-bottom: 6px; }
+    h3 { font-size: 1.05rem; font-weight: 600; color: var(--primary); }
+    .section-desc { font-size: .95rem; color: var(--text-muted); margin-bottom: 24px; max-width: 780px; }
+
+    /* HERO */
+    .hero { background: var(--primary); color: var(--white); border-radius: var(--radius); padding: 60px 40px; text-align: center; margin: 32px 0; box-shadow: var(--shadow-md); }
+    .hero h1 { font-size: clamp(1.8rem, 4.4vw, 2.7rem); font-weight: 500; line-height: 1.2; margin-bottom: 14px; }
+    .hero-sub { font-size: 1.1rem; color: var(--accent-light); font-weight: 500; margin-bottom: 20px; }
+    .hero-insight { display: inline-block; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 30px; padding: 10px 24px; font-size: .95rem; font-style: italic; color: #cbd5e1; max-width: 750px; }
+    .hero-meta { display: flex; justify-content: center; gap: 28px; margin-top: 28px; flex-wrap: wrap; }
+    .hero-meta-item { font-size: .82rem; color: #94a3b8; font-weight: 500; letter-spacing: .4px; }
+    .hero-meta-item span { color: #e2e8f0; font-weight: 700; }
+    .hero-note { margin-top: 22px; font-size: .8rem; color: #94a3b8; }
+
+    /* PROPOSAL LABEL */
+    .proposal-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #fef3c7; color: #92400e; border: 1px solid #fde68a;
+      border-radius: 20px; padding: 4px 12px; font-size: .75rem; font-weight: 700;
+      letter-spacing: .5px; margin-bottom: 20px;
+    }
+
+    /* SECTION */
+    .section { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 28px; box-shadow: var(--shadow-sm); }
+    .section-title { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .section-num { width: 28px; height: 28px; background: var(--accent); color: white; border-radius: 50%; font-size: .8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+    /* GRIDS */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    @media (max-width: 960px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } .hero { padding: 40px 20px; } .section { padding: 20px; } }
+
+    /* CARDS */
+    .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; transition: transform .2s, box-shadow .2s; }
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .card-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .7px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; }
+    .card-value { font-size: 2rem; font-weight: 800; line-height: 1; margin-bottom: 8px; }
+    .card-desc { font-size: .88rem; color: var(--text-muted); }
+
+    /* DATASET CARDS */
+    .data-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; transition: transform .2s, box-shadow .2s; }
+    .data-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .data-card-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 12px; }
+    .data-card h3 { font-size: .95rem; margin-bottom: 6px; }
+    .data-card .source-tag { font-size: .72rem; font-weight: 700; padding: 2px 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; color: var(--text-muted); display: inline-block; margin-bottom: 10px; }
+
+    /* SEGMENT CARDS */
+    .seg-card { border-radius: var(--radius); border: 1px solid var(--border); padding: 22px; background: var(--white); transition: transform .2s, box-shadow .2s; }
+    .seg-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .seg-title { font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
+    .seg-tag { display: inline-block; font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .seg-stat { font-size: .85rem; font-weight: 600; margin-top: 12px; }
+    .seg-blue .seg-title { color: #2563eb; } .seg-blue .seg-tag { background: #dbeafe; color: #1d4ed8; } .seg-blue { border-top: 4px solid #2563eb; }
+    .seg-red .seg-title { color: #dc2626; } .seg-red .seg-tag { background: #fee2e2; color: #b91c1c; } .seg-red { border-top: 4px solid #ef4444; background: rgba(239,68,68,.03); }
+    .seg-green .seg-title { color: #059669; } .seg-green .seg-tag { background: #d1fae5; color: #047857; } .seg-green { border-top: 4px solid #10b981; }
+    .seg-purple .seg-title { color: #7c3aed; } .seg-purple .seg-tag { background: #ede9fe; color: #6d28d9; } .seg-purple { border-top: 4px solid #8b5cf6; }
+
+    /* CALLOUT */
+    .callout { background: var(--accent-light); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 16px 20px; font-size: .9rem; color: #24413d; margin: 16px 0; line-height: 1.6; }
+    .callout strong { color: var(--accent); }
+    .callout-amber { background: #fffbeb; border-left: 4px solid var(--warning); border-radius: 0 8px 8px 0; padding: 16px 20px; font-size: .88rem; color: #78350f; margin: 16px 0; line-height: 1.6; }
+    .callout-amber strong { color: #92400e; }
+
+    /* FLOW */
+    .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; background: var(--bg); border-radius: var(--radius); padding: 24px; margin-top: 24px; }
+    .flow-node { flex: 1; min-width: 130px; background: var(--white); border: 1px solid var(--accent); border-radius: 30px; padding: 12px 18px; text-align: center; font-size: .85rem; font-weight: 600; color: var(--accent); box-shadow: var(--shadow-sm); }
+    .flow-arrow { color: var(--text-muted); font-size: 1.2rem; font-weight: 700; }
+
+    /* BARS */
+    .bar-row { margin-bottom: 16px; }
+    .bar-header { display: flex; justify-content: space-between; font-size: .88rem; font-weight: 600; margin-bottom: 6px; color: var(--text-dark); }
+    .bar-track { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; width: 100%; }
+    .bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+    .weight-strip { display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin: 20px 0 4px; }
+    .ws-label { display: flex; justify-content: space-between; font-size: .72rem; }
+
+    /* APPROACH STEPS */
+    .step-list { counter-reset: steps; list-style: none; padding: 0; margin-top: 16px; }
+    .step-list li { counter-increment: steps; display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+    .step-list li:last-child { border-bottom: none; }
+    .step-num { width: 30px; height: 30px; background: var(--accent-light); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .85rem; flex-shrink: 0; margin-top: 2px; }
+    .step-body h4 { font-size: .95rem; margin-bottom: 4px; color: var(--primary); }
+    .step-body p { font-size: .88rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* TABLE */
+    .table-controls { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-family: var(--font); font-size: .88rem; background: var(--white); color: var(--primary); outline: none; cursor: pointer; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    thead th { background: var(--bg); padding: 11px 14px; font-size: .78rem; text-transform: uppercase; letter-spacing: .6px; color: var(--text-muted); font-weight: 700; border-bottom: 2px solid var(--border); white-space: nowrap; text-align: left; }
+    tbody td { padding: 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tbody tr { cursor: pointer; transition: background .15s; }
+    tbody tr:hover { background: #f6f4ef; }
+    .score-chip { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .85rem; color: white; flex-shrink: 0; }
+    .badge { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: .78rem; font-weight: 700; }
+    .badge-red { background: #fee2e2; color: #b91c1c; }
+    .badge-yellow { background: #fef3c7; color: #92400e; }
+    .badge-green { background: #d1fae5; color: #065f46; }
+
+    /* PANEL — HIDDEN BY DEFAULT */
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 300; display: none; backdrop-filter: blur(2px); }
+    .panel { position: fixed; top: 0; right: -100%; width: min(460px, 100vw); height: 100vh; background: var(--white); box-shadow: -6px 0 20px rgba(0,0,0,.12); z-index: 400; transition: right .3s ease; overflow-y: auto; overflow-x: hidden; padding: 32px 28px; }
+    .panel.open { right: 0; }
+    .panel-close { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.6rem; color: var(--text-muted); cursor: pointer; line-height: 1; }
+    .panel-close:hover { color: var(--primary); }
+
+    /* KPI */
+    .kpi-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; text-align: center; transition: transform .2s, box-shadow .2s; }
+    .kpi-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+    /* TAKEAWAY */
+    .takeaway { background: var(--primary); color: white; border-radius: var(--radius); padding: 48px 40px; text-align: center; font-size: clamp(1rem, 2.5vw, 1.2rem); line-height: 1.7; box-shadow: var(--shadow-md); }
+    .takeaway cite { display: block; margin-top: 16px; font-style: normal; font-size: .82rem; font-weight: 600; color: #94a3b8; }
+
+    /* HELPERS */
+    ul.clean { list-style: none; padding: 0; }
+    ul.clean li { padding: 4px 0; font-size: .88rem; color: var(--text-muted); }
+    ul.clean li::before { content: "› "; color: var(--accent); font-weight: 700; }
+    .text-muted { color: var(--text-muted); font-size: .9rem; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+    .tag { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+    .tag-blue { background: var(--accent-light); color: var(--accent); }
+    .tag-green { background: #d1fae5; color: #047857; }
+    .tag-amber { background: #fef3c7; color: #92400e; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="back-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      Back to home
+    </a>
+    <span class="nav-badge">Commercial Analytics · Strategy Proposal</span>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- ── HERO ───────────────────────────────────────────────── -->
+  <div class="hero">
+    <h1>Leqembi SC Adoption: HCP Targeting Strategy</h1>
+    <p class="hero-sub">A commercial analytics proposal for prioritizing IV-to-SC maintenance transition</p>
+    <span class="hero-insight">
+      "The highest-value targets are not simply high prescribers — they are sites where subcutaneous dosing removes real operational friction and improves patient continuity of care."
+    </span>
+    <div class="hero-meta">
+      <div class="hero-meta-item">Document type: <span>Strategy Proposal</span></div>
+      <div class="hero-meta-item">Therapy area: <span>Alzheimer's Disease</span></div>
+      <div class="hero-meta-item">Focus: <span>Leqembi IV → SC Transition</span></div>
+    </div>
+    <p class="hero-note">An independent portfolio exercise by Rushath Rajeev. Not affiliated with or endorsed by Eisai or Biogen.</p>
+  </div>
+
+  <!-- ── 1. PROBLEM FRAMING ──────────────────────────────────── -->
+  <div class="section">
+    <div class="proposal-pill">Proposal · Section 1 of 7</div>
+    <div class="section-title">
+      <div class="section-num">1</div>
+      <h2>Problem Framing &amp; Commercial Objective</h2>
+    </div>
+    <p class="section-desc">
+      This document proposes an analytics-driven commercial strategy for Biogen's field organization as it prepares for the subcutaneous (SC) formulation of Leqembi. The framework is designed for a commercial data scientist or customer insights team to execute.
+    </p>
+    <hr class="divider">
+    <div class="two-col">
+      <div>
+        <h3 style="margin-bottom:12px;">Clinical Context</h3>
+        <p class="card-desc" style="margin-bottom:12px;">
+          Leqembi (lecanemab) is initiated via biweekly IV infusion. The proposed SC formulation — if approved — would serve as a maintenance option after IV-phase stabilization. This creates a new commercial question that did not exist at initial IV launch:
+        </p>
+        <div class="callout">
+          <strong>The core question:</strong> Among all HCPs currently prescribing Leqembi IV, which should the field team prioritize for SC conversion conversations — and why?
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px;">Why This Requires Analytics</h3>
+        <ul class="clean">
+          <li>Not all high-IV-prescribers benefit equally from SC</li>
+          <li>SC value is highest where IV creates operational friction</li>
+          <li>Field capacity is finite — precision targeting matters</li>
+          <li>No SC claims data exists at launch — requires inference from analogs</li>
+          <li>Patient-level factors (travel, caregiver burden) vary by geography</li>
+        </ul>
+        <div class="callout-amber" style="margin-top:16px;">
+          <strong>Proposal scope:</strong> This framework describes what data to acquire, what analysis to conduct, and what commercial decisions the outputs would inform — not results from a completed study.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2. DATA STRATEGY ────────────────────────────────────── -->
+  <div class="section">
+    <div class="proposal-pill">Proposal · Section 2 of 7</div>
+    <div class="section-title">
+      <div class="section-num">2</div>
+      <h2>Proposed Data Strategy: What to Acquire and Why</h2>
+    </div>
+    <p class="section-desc">
+      We recommend building the HCP targeting model from five data domains. Below we specify the recommended data source type, example variables, and the analytical role each domain plays.
+    </p>
+    <div class="grid-4">
+
+      <div class="data-card">
+        <div class="source-tag">Claims / Rx Data</div>
+        <h3>Leqembi IV Utilization</h3>
+        <ul class="clean" style="margin-top:8px;">
+          <li>HCP-level IV Rx counts (trailing 12 months)</li>
+          <li>New patient starts vs. maintenance patients</li>
+          <li>Patient 6-month treatment retention rate</li>
+          <li>Concomitant anti-amyloid therapy use</li>
+        </ul>
+        <p class="card-desc" style="margin-top:10px;"><strong>Role:</strong> Establishes the maintenance-eligible patient pool per HCP — the denominator for any IV→SC conversion opportunity.</p>
+      </div>
+
+      <div class="data-card">
+        <div class="source-tag">Operational / Site Data</div>
+        <h3>Infusion Center Capacity</h3>
+        <ul class="clean" style="margin-top:8px;">
+          <li>Infusion chair count and hours of operation</li>
+          <li>Average chair utilization rate (%)</li>
+          <li>Wait time for new IV patient scheduling</li>
+          <li>Nursing staff per infusion room ratio</li>
+        </ul>
+        <p class="card-desc" style="margin-top:10px;"><strong>Role:</strong> Identifies "infusion friction" — the key driver of SC's operational value proposition. Sites running above ~85% utilization create an urgent conversion incentive.</p>
+      </div>
+
+      <div class="data-card">
+        <div class="source-tag">Geographic / CMS Data</div>
+        <h3>Patient Access &amp; Geography</h3>
+        <ul class="clean" style="margin-top:8px;">
+          <li>Average drive time from patient zip to infusion site</li>
+          <li>Urban / rural / suburban site classification</li>
+          <li>% Medicare / Medicaid payer mix (proxy for socioeconomic burden)</li>
+          <li>Region-level caregiver availability index</li>
+        </ul>
+        <p class="card-desc" style="margin-top:10px;"><strong>Role:</strong> Quantifies patient travel burden. Where travel to infusion is a barrier, SC may prevent drop-off and improve adherence — a distinct patient-centered value driver.</p>
+      </div>
+
+      <div class="data-card">
+        <div class="source-tag">Analog Launch Data</div>
+        <h3>Historical IV→SC Biologic Transitions</h3>
+        <ul class="clean" style="margin-top:8px;">
+          <li>Ocrevus (ocrelizumab) IV → Ocrevus SC adoption patterns</li>
+          <li>Darzalex (daratumumab) → Darzalex Faspro switch velocity</li>
+          <li>Phesgo (pertuzumab/trastuzumab) conversion rates</li>
+          <li>HCP-level adoption timing from analog launches</li>
+        </ul>
+        <p class="card-desc" style="margin-top:10px;"><strong>Role:</strong> Serves as a proxy for SC adoption propensity before real Leqembi SC claims exist. The core method for solving the cold-start targeting problem.</p>
+      </div>
+
+    </div>
+    <div class="callout" style="margin-top:20px;">
+      <strong>Recommended data vendors:</strong> IQVIA Xponent / Symphony Health (claims), MMIT (access/payer), Definitive Healthcare (site capacity), CMS Open Payments and Medicare Part B (utilization benchmarks). Analog data can be extracted from published literature or licensed datasets.
+    </div>
+  </div>
+
+  <!-- ── 3. SEGMENTATION STRATEGY ───────────────────────────── -->
+  <div class="section">
+    <div class="proposal-pill">Proposal · Section 3 of 7</div>
+    <div class="section-title">
+      <div class="section-num">3</div>
+      <h2>Proposed HCP Segmentation Framework</h2>
+    </div>
+    <p class="section-desc">
+      We propose segmenting the HCP universe into four non-overlapping commercial segments, each defined by distinct data criteria and warranting different field team actions. Segment assignment would be updated quarterly as new claims data matures.
+    </p>
+    <div class="grid-4">
+      <div class="seg-card seg-blue">
+        <span class="seg-tag">Segment A</span>
+        <div class="seg-title">High IV Volume Prescribers</div>
+        <p class="text-muted">HCPs in the top quartile of Leqembi IV Rx volume. Largest pool of eligible maintenance patients for SC conversion conversations.</p>
+        <ul class="clean" style="margin-top:12px;">
+          <li>Criteria: Top-25% IV Rx volume (trailing 12M)</li>
+          <li>Data source: Claims / Rx</li>
+          <li>Field action: Introduction + patient identification</li>
+        </ul>
+        <div class="seg-stat" style="color:#2563eb;">~60% of all eligible maintenance patients</div>
+      </div>
+      <div class="seg-card seg-red">
+        <span class="seg-tag">Segment B · HIGHEST PRIORITY</span>
+        <div class="seg-title">Infusion-Constrained Sites</div>
+        <p class="text-muted">Sites where infusion chair utilization exceeds a defined threshold (e.g., ≥85%). SC adoption here frees capacity for new IV starts, creating a virtuous commercial cycle.</p>
+        <ul class="clean" style="margin-top:12px;">
+          <li>Criteria: Chair utilization ≥85% OR wait &gt;4 weeks</li>
+          <li>Data source: Site operational data</li>
+          <li>Field action: Operational ROI pitch + rapid conversion support</li>
+        </ul>
+        <div class="seg-stat" style="color:#dc2626;">Highest conversion value per HCP engagement</div>
+      </div>
+      <div class="seg-card seg-green">
+        <span class="seg-tag">Segment C</span>
+        <div class="seg-title">Early SC Adopter Profiles</div>
+        <p class="text-muted">HCPs who historically adopted SC formulations early in analogous biologic launches. Identified via analog data — high receptivity to novel delivery innovation.</p>
+        <ul class="clean" style="margin-top:12px;">
+          <li>Criteria: Early-adopt rank in ≥2 biologic SC analogs</li>
+          <li>Data source: Analog launch data</li>
+          <li>Field action: Clinical update + KOL activation + samples</li>
+        </ul>
+        <div class="seg-stat" style="color:#059669;">Highest expected time-to-first-SC-Rx</div>
+      </div>
+      <div class="seg-card seg-purple">
+        <span class="seg-tag">Segment D</span>
+        <div class="seg-title">High Patient Travel Burden</div>
+        <p class="text-muted">HCPs at sites where the patient geography makes IV maintenance clinically untenable over time. SC offers a continuity of care solution — a distinct patient-centered value story.</p>
+        <ul class="clean" style="margin-top:12px;">
+          <li>Criteria: Median patient drive time &gt;30 min to infusion site</li>
+          <li>Data source: CMS zip code + claims linkage</li>
+          <li>Field action: Patient adherence + access support tools</li>
+        </ul>
+        <div class="seg-stat" style="color:#7c3aed;">Strongest long-term adherence improvement opportunity</div>
+      </div>
+    </div>
+    <div class="callout-amber" style="margin-top:20px;">
+      <strong>Note on overlap:</strong> HCPs may qualify for multiple segments — e.g., a high-volume prescriber who also operates a constrained infusion site. We recommend a priority-ordering rule: <strong>Segment B (infusion-constrained) always takes precedence</strong> in field team framing, as the ROI of operational unlock is more immediately quantifiable and actionable.
+    </div>
+  </div>
+
+  <!-- ── 4. ANALOG ANALYSIS ──────────────────────────────────── -->
+  <div class="section">
+    <div class="proposal-pill">Proposal · Section 4 of 7</div>
+    <div class="section-title">
+      <div class="section-num">4</div>
+      <h2>Proposed Analog Analysis Methodology</h2>
+    </div>
+    <p class="section-desc">
+      Because Leqembi SC will launch with zero historical claims data, the targeting model cannot be trained directly on observed SC prescribing behavior. We propose using <strong>IV-to-SC biologic analogs</strong> to engineer predictive features and estimate relative HCP adoption propensity before real-world data exists.
+    </p>
+    <div class="two-col">
+      <div>
+        <h3 style="margin-bottom:12px;">Why Analogs Work Here</h3>
+        <p class="card-desc" style="margin-bottom:12px;">
+          IV-to-SC switches across biologic categories share a common adoption dynamic: early adopters are driven by operational efficiency or patient convenience, while laggards require either peer pressure from KOLs or reimbursement clarity. The specific therapy matters less than the structural adoption pattern.
+        </p>
+        <p class="card-desc" style="margin-bottom:12px;">
+          Published literature on Darzalex Faspro and Ocrevus SC transitions shows that <strong>infusion chair utilization is consistently the strongest site-level predictor of early SC adoption</strong>, with relative conversion rates 2–3× higher at capacity-constrained sites versus unconstrained sites in the first 6 months post-launch. (See: Mateos et al., 2020; Hauser et al., 2023 — used here as a methodological precedent, not a direct benchmark.)
+        </p>
+        <div class="callout">
+          <strong>Proposed analog pool:</strong> Darzalex Faspro (oncology), Ocrevus SC (neurology / MS), Phesgo (oncology), Kesimpta (CNS / neurology). We recommend prioritizing neurology analogs (Ocrevus, Kesimpta) for HCP behavior modeling, given specialty alignment.
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px;">Proposed Analytical Steps</h3>
+        <ol class="step-list">
+          <li>
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Acquire analog Rx panel data</h4>
+              <p>Obtain HCP-level prescription data for each analog therapy covering 24 months before and after SC formulation launch. Source: IQVIA Xponent or Symphony Health panel.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>Define and measure adoption velocity</h4>
+              <p>For each HCP in the analog dataset, calculate time-to-first-SC-Rx (in weeks from SC availability), and classify as early / mid / late adopter using quartile cutoffs.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>Identify HCP-level adoption predictors</h4>
+              <p>Using logistic regression or random forest on the analog cohort, identify which HCP and site characteristics predict early SC adoption. Candidate predictors: IV volume, site capacity, specialty, geography, network centrality.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <h4>Engineer "Analog Propensity Score" for Leqembi HCPs</h4>
+              <p>Apply the trained feature weights to the current Leqembi IV HCP universe to generate a ranked analog propensity score. This serves as a prior probability for SC adoption at launch.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <h4>Validate and update as real data accumulates</h4>
+              <p>As Leqembi SC claims emerge post-launch, re-calibrate the model weights using actual observed behavior. Track model lift vs. a non-targeted control group.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="flow">
+      <div class="flow-node">Acquire Analog Rx Panels</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">Measure SC Adoption Velocity</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">Identify Predictive Features</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">Score Leqembi IV HCPs</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">Update with Real Launch Data</div>
+    </div>
+  </div>
+
+  <!-- ── 5. SCORING MODEL ────────────────────────────────────── -->
+  <div class="section">
+    <div class="proposal-pill">Proposal · Section 5 of 7</div>
+    <div class="section-title">
+      <div class="section-num">5</div>
+      <h2>Proposed HCP Scoring Model</h2>
+    </div>
+    <p class="section-desc">
+      We propose a composite weighted scoring model — not a black-box ML system — specifically because field teams need to understand and explain every score to HCPs. Each component is independently interpretable and maps directly to a field messaging strategy.
+    </p>
+    <div class="two-col">
+      <div>
+        <h3 style="margin-bottom:16px;">Proposed Score Components &amp; Suggested Weights</h3>
+        <div class="bar-row">
+          <div class="bar-header"><span>Infusion Site Constraint Level</span><span>35%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--danger);"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-header"><span>Current Leqembi IV Maintenance Volume</span><span>25%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--accent);"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-header"><span>Analog-Derived SC Propensity Score</span><span>25%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--success);"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-header"><span>Patient Travel / Geographic Burden</span><span>15%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:15%;background:var(--purple);"></div></div>
+        </div>
+        <div class="weight-strip">
+          <div style="width:35%;background:var(--danger);"></div>
+          <div style="width:25%;background:var(--accent);"></div>
+          <div style="width:25%;background:var(--success);"></div>
+          <div style="width:15%;background:var(--purple);"></div>
+        </div>
+        <div class="ws-label">
+          <span style="color:var(--danger);">Capacity 35%</span>
+          <span style="color:var(--accent);">Volume 25%</span>
+          <span style="color:var(--success);">Analog 25%</span>
+          <span style="color:var(--purple);">Travel 15%</span>
+        </div>
+        <p class="card-desc" style="margin-top:12px;">
+          Weights are initial hypotheses informed by analog data and clinical judgment. They should be calibrated empirically as Leqembi SC claims mature — e.g., via elastic net regression on early-adopter outcomes.
+        </p>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px;">Model Design Rationale</h3>
+        <ul class="clean">
+          <li>Interpretable by design — each driver maps to a field message</li>
+          <li>No black-box components at launch (explainability > raw accuracy)</li>
+          <li>Weighted additive model allows easy sensitivity analysis</li>
+          <li>Components updated on different refresh cycles (claims quarterly, site data semi-annually)</li>
+          <li>Output is a ranked tier list (Tier 1 / 2 / 3), not a raw number, to limit over-interpretation</li>
+        </ul>
+        <div class="callout" style="margin-top:20px;">
+          <strong>Proposed validation approach:</strong> Back-test the scoring model against early adopters from analog SC launches (e.g., Ocrevus SC) to assess whether the same feature weights would have correctly ranked early vs. late adopters. Report Spearman rank correlation and top-decile lift as performance benchmarks — not AUC from a trained ML model.
+        </div>
+        <div class="callout-amber" style="margin-top:12px;">
+          <strong>Important framing:</strong> This is a prioritization score, not a prediction model. It ranks relative opportunity — it does not forecast Rx probability. This distinction should be communicated clearly to field leadership.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 6. ILLUSTRATIVE OUTPUT ──────────────────────────────── -->
+  <div class="section">
+    <div class="proposal-pill">Section 6 · Illustrative output (fictional data)</div>
+    <div class="section-title">
+      <div class="section-num">6</div>
+      <h2>Illustrative Prioritization Output</h2>
+    </div>
+    <p class="section-desc">
+      This table demonstrates what the scoring model output would look like for a field team. All HCP names and data are entirely fictional and exist solely to illustrate the proposed framework. Click any row to see the type of explainable insight that would accompany each score.
+    </p>
+    <div class="table-controls">
+      <select id="segFilter">
+        <option value="all">All Segments</option>
+        <option value="constrained">Infusion-Constrained (Seg B)</option>
+        <option value="high-iv">High IV Volume (Seg A)</option>
+        <option value="early-adopter">Early Adopter Profile (Seg C)</option>
+        <option value="access">Patient Travel Burden (Seg D)</option>
+      </select>
+      <select id="sortSel">
+        <option value="desc">Priority Score: High → Low</option>
+        <option value="asc">Priority Score: Low → High</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>HCP / Site (Fictional)</th>
+            <th>Specialty</th>
+            <th>Segment</th>
+            <th>Site Constraint</th>
+            <th>Priority Score</th>
+            <th>Tier</th>
+            <th>Proposed Field Action</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── 7. SUCCESS MEASUREMENT ─────────────────────────────── -->
+  <div class="section">
+    <div class="proposal-pill">Proposal · Section 7 of 7</div>
+    <div class="section-title">
+      <div class="section-num">7</div>
+      <h2>Proposed Success Metrics</h2>
+    </div>
+    <p class="section-desc">
+      We recommend tracking the following KPIs to evaluate whether the targeting strategy is working post-launch. These are proposed measurement frameworks, not predicted outcomes.
+    </p>
+    <div class="grid-3">
+      <div class="kpi-card">
+        <div class="card-label">Time to First SC Rx</div>
+        <div class="card-value" style="color:var(--accent);">Weeks</div>
+        <div class="card-desc">Measure median weeks from first field engagement to first SC Rx. Compare Tier 1 vs. Tier 3 HCPs to validate that higher-ranked accounts are converting faster — i.e., whether the score predicts adoption speed.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="card-label">IV → SC Conversion Rate</div>
+        <div class="card-value" style="color:var(--success);">%</div>
+        <div class="card-desc">Track what fraction of active IV maintenance patients at targeted sites transition to SC at 3, 6, and 12 months. Disaggregate by segment to assess which driver (capacity, travel, analog propensity) predicts conversion best.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="card-label">Capacity Unlock (Infusion Hours)</div>
+        <div class="card-value" style="color:var(--danger);">Hours/wk</div>
+        <div class="card-desc">At infusion-constrained sites (Segment B), measure change in average weekly infusion chair hours consumed per site as SC transitions accumulate. Quantify the operational ROI directly for KOL and system-level discussions.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="card-label">Patient Treatment Continuity</div>
+        <div class="card-value" style="color:var(--purple);">Rate</div>
+        <div class="card-desc">Compare 6-month treatment persistence for patients who switched to SC vs. those who remained on IV. A statistically significant improvement in persistence among SC patients would validate the travel-burden targeting hypothesis.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="card-label">Field Engagement Efficiency</div>
+        <div class="card-value" style="color:var(--warning);">Ratio</div>
+        <div class="card-desc">Calls-to-conversion ratio for Tier 1 vs. Tier 3 HCPs. If the model is working, Tier 1 accounts should require fewer rep touchpoints per SC conversion. This is a standard field force productivity metric.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="card-label">Score Rank Correlation with Adoption</div>
+        <div class="card-value" style="color:var(--text-dark);">ρ</div>
+        <div class="card-desc">Spearman rank correlation between the proposed priority score and observed adoption quartile. This is the primary model validity test — computed at 6 and 12 months post-launch to assess whether the ranking correctly orders HCPs.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAKEAWAY ────────────────────────────────────────────── -->
+  <div class="takeaway">
+    "This proposal outlines a rigorous, data-grounded commercial analytics framework. The strategy centers on a core insight: the highest-value SC conversion targets are not simply high prescribers, but HCPs and sites where moving patients from IV to SC removes real, measurable operational friction. Identifying those sites before launch — using analog data, capacity signals, and patient geography — is the analytical work that separates a precision launch from a spray-and-pray approach."
+    <cite>— Leqembi SC HCP Targeting Strategy · Commercial Analytics Proposal</cite>
+  </div>
+
+</div><!-- /page -->
+
+<!-- ── OVERLAY + INSIGHT PANEL ────────────────────────────────── -->
+<div class="overlay" id="overlay"></div>
+<div class="panel" id="panel">
+  <button class="panel-close" id="panelClose" aria-label="Close">&times;</button>
+  <div style="margin-top:12px;">
+    <p style="font-size:.78rem;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);font-weight:700;">
+      Illustrative Insight (Fictional HCP)
+    </p>
+    <h2 style="font-size:1.35rem;margin:8px 0 4px;" id="pName">—</h2>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:20px;">
+      <span class="badge" id="pTier">—</span>
+      <span class="text-muted" id="pSpec">—</span>
+    </div>
+
+    <div style="background:var(--bg);border-radius:var(--radius);padding:20px;margin-bottom:20px;">
+      <h3 style="margin-bottom:14px;font-size:.9rem;">Proposed Score Drivers</h3>
+      <div class="bar-row">
+        <div class="bar-header"><span>Site Infusion Constraint</span><span id="vCap">—</span></div>
+        <div class="bar-track"><div class="bar-fill" id="bCap" style="background:var(--danger);width:0%;"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header"><span>Analog SC Propensity</span><span id="vAna">—</span></div>
+        <div class="bar-track"><div class="bar-fill" id="bAna" style="background:var(--success);width:0%;"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-header"><span>Patient Travel Burden</span><span id="vTrv">—</span></div>
+        <div class="bar-track"><div class="bar-fill" id="bTrv" style="background:var(--purple);width:0%;"></div></div>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:8px;font-size:.9rem;">Why This Account Would Be Prioritized</h3>
+    <p id="pWhy" class="text-muted" style="margin-bottom:20px;font-size:.88rem;line-height:1.6;"></p>
+
+    <h3 style="margin-bottom:8px;font-size:.9rem;">Proposed Field Engagement Strategy</h3>
+    <div style="background:var(--accent-light);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:16px;">
+      <strong id="pActType" style="color:var(--accent);font-size:.92rem;display:block;margin-bottom:6px;"></strong>
+      <p id="pActMsg" style="font-size:.86rem;color:#24413d;line-height:1.6;"></p>
+    </div>
+
+    <div class="callout-amber" style="margin-top:16px;">
+      <strong>Reminder:</strong> All data in this table is illustrative. In practice, scores would be computed from real claims, site operational data, and analog analysis as described in this proposal.
+    </div>
+  </div>
+</div>
+
+<!-- ── JAVASCRIPT ─────────────────────────────────────────────── -->
+<script>
+// ── Fictional illustrative HCP dataset ────────────────────────
+const HCP_DATA = [
+  {
+    id: 1, name: "Dr. Sarah Jenkins (fictional)", specialty: "Memory Care Neurology",
+    segment: "constrained", segLabel: "Seg B · Infusion-Constrained",
+    constraint: "High (est. 94%)", score: 91, tier: "Tier 1", tierClass: "badge-red",
+    drivers: { cap: 94, ana: 78, trv: 60 },
+    why: "Illustrative scenario: a practice operating near full infusion capacity, with a growing waitlist for new IV patients. The proposed framework would flag this HCP because SC conversion of stable maintenance patients directly unlocks new IV initiation capacity — a compelling operational ROI to present.",
+    action: "Operational ROI Conversation",
+    msg: "Proposed approach: lead with capacity data. Show that transitioning a subset of stable patients to SC reopen infusion slots for new IV starts. Offer scheduling support and access team resources for the first conversions."
+  },
+  {
+    id: 2, name: "Dr. Marcus Chen (fictional)", specialty: "Academic Neurology",
+    segment: "early-adopter", segLabel: "Seg C · Early Adopter Profile",
+    constraint: "Moderate (est. 72%)", score: 85, tier: "Tier 1", tierClass: "badge-red",
+    drivers: { cap: 72, ana: 95, trv: 45 },
+    why: "Illustrative scenario: an HCP whose analog data profile shows early adoption behavior across two or more biologic SC launches. This person would be identified in the proposed analog analysis as a likely early mover — high intrinsic receptivity to delivery innovation.",
+    action: "Clinical Update + KOL Activation",
+    msg: "Proposed approach: clinical data sharing, and — where appropriate — KOL speaker bureau consideration. This HCP's early adoption pattern makes them a potential champion who can influence peers at conferences and through case sharing."
+  },
+  {
+    id: 3, name: "Northwest Neuro Group (fictional)", specialty: "Group Practice — Neurology",
+    segment: "high-iv", segLabel: "Seg A · High IV Volume",
+    constraint: "High (est. 86%)", score: 78, tier: "Tier 2", tierClass: "badge-yellow",
+    drivers: { cap: 86, ana: 45, trv: 50 },
+    why: "Illustrative scenario: a high-volume group with significant IV throughput but no documented early-adopter behavior in analog data. The framework would recommend a structured pilot program — targeting a subset of the most stable patients — rather than a broad SC-first message.",
+    action: "Structured Pilot Program Proposal",
+    msg: "Proposed approach: engage the practice administrator, not just individual physicians, to map the SC workflow change. Define a 10-patient pilot targeting patients who have been on stable IV maintenance for 6+ months. Escalate to senior rep or medical science liaison if protocol change is needed."
+  },
+  {
+    id: 4, name: "Dr. Elena Vargas (fictional)", specialty: "Geriatric Psychiatry",
+    segment: "constrained", segLabel: "Seg B · Infusion-Constrained",
+    constraint: "Critical (est. 98%)", score: 88, tier: "Tier 1", tierClass: "badge-red",
+    drivers: { cap: 98, ana: 60, trv: 88 },
+    why: "Illustrative scenario: a small practice operating a single infusion chair at near-maximum utilization. Growth is structurally limited without SC. Patients also face significant travel distance. This account would appear high on both the capacity and travel-burden dimensions of the proposed score.",
+    action: "Access + Practice Growth Framing",
+    msg: "Proposed approach: lead with SC as the structural enabler of practice growth. Combine the operational argument (capacity) with the patient adherence argument (travel reduction). Hub services and prior auth support should be offered proactively."
+  },
+  {
+    id: 5, name: "Midwest AD Center (fictional)", specialty: "Academic Medical Center",
+    segment: "high-iv", segLabel: "Seg A · High IV Volume",
+    constraint: "Low (est. 45%)", score: 52, tier: "Tier 3", tierClass: "badge-green",
+    drivers: { cap: 30, ana: 40, trv: 85 },
+    why: "Illustrative scenario: a large academic center with spare infusion capacity. IV administration is a revenue center. The operational argument for SC conversion is weak. The framework correctly de-prioritizes outreach on capacity grounds — but patient geography data suggests a subset of patients may still benefit from SC access.",
+    action: "Patient Subset Identification",
+    msg: "Proposed approach: do not lead with operational efficiency — it creates misaligned incentives. Instead, share patient geography analysis showing which specific patients face travel hardship. Propose SC as an option for those patients only, where adherence risk is highest."
+  },
+  {
+    id: 6, name: "Dr. Priya Anand (fictional)", specialty: "Rural Neurology Practice",
+    segment: "access", segLabel: "Seg D · Patient Travel Burden",
+    constraint: "Moderate (est. 68%)", score: 71, tier: "Tier 2", tierClass: "badge-yellow",
+    drivers: { cap: 68, ana: 55, trv: 92 },
+    why: "Illustrative scenario: a rural practice serving a geographically dispersed patient population. The nearest alternative infusion site is far away. The proposed framework would rank this HCP highly on the travel burden dimension — SC is not a convenience here, it is a clinical continuity tool.",
+    action: "Continuity of Care + Patient Access",
+    msg: "Proposed approach: frame SC as enabling long-term therapy continuity for patients who would otherwise face adherence gaps due to travel. Provide detailed patient geography maps as a conversation anchor. Access team and hub services are especially important in this account type."
+  }
+];
+
+const scoreColor = s => s >= 80 ? '#ef4444' : s >= 65 ? '#f59e0b' : '#10b981';
+
+function renderTable(data) {
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+  data.forEach(hcp => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="font-weight:600;color:var(--primary);">${hcp.name}</td>
+      <td class="text-muted">${hcp.specialty}</td>
+      <td>${hcp.segLabel}</td>
+      <td>${hcp.constraint}</td>
+      <td><div class="score-chip" style="background:${scoreColor(hcp.score)}">${hcp.score}</div></td>
+      <td><span class="badge ${hcp.tierClass}">${hcp.tier}</span></td>
+      <td style="color:var(--accent);font-weight:600;font-size:.82rem;">${hcp.action} ›</td>
+    `;
+    tr.addEventListener('click', () => openPanel(hcp.id));
+    tbody.appendChild(tr);
+  });
+}
+
+function updateTable() {
+  const seg  = document.getElementById('segFilter').value;
+  const sort = document.getElementById('sortSel').value;
+  let rows = seg === 'all' ? [...HCP_DATA] : HCP_DATA.filter(d => d.segment === seg);
+  rows.sort((a, b) => sort === 'desc' ? b.score - a.score : a.score - b.score);
+  renderTable(rows);
+}
+
+document.getElementById('segFilter').addEventListener('change', updateTable);
+document.getElementById('sortSel').addEventListener('change', updateTable);
+
+const overlay = document.getElementById('overlay');
+const panel   = document.getElementById('panel');
+
+function openPanel(id) {
+  const h = HCP_DATA.find(d => d.id === id);
+  if (!h) return;
+  document.getElementById('pName').textContent = h.name;
+  document.getElementById('pSpec').textContent = h.specialty;
+  const tierEl = document.getElementById('pTier');
+  tierEl.textContent = h.tier;
+  tierEl.className = `badge ${h.tierClass}`;
+  document.getElementById('vCap').textContent = h.drivers.cap + ' / 100';
+  document.getElementById('vAna').textContent = h.drivers.ana + ' / 100';
+  document.getElementById('vTrv').textContent = h.drivers.trv + ' / 100';
+  ['bCap','bAna','bTrv'].forEach(i => document.getElementById(i).style.width = '0%');
+  setTimeout(() => {
+    document.getElementById('bCap').style.width = h.drivers.cap + '%';
+    document.getElementById('bAna').style.width = h.drivers.ana + '%';
+    document.getElementById('bTrv').style.width = h.drivers.trv + '%';
+  }, 40);
+  document.getElementById('pWhy').textContent    = h.why;
+  document.getElementById('pActType').textContent = h.action;
+  document.getElementById('pActMsg').textContent  = h.msg;
+  overlay.style.display = 'block';
+  requestAnimationFrame(() => panel.classList.add('open'));
+}
+
+function closePanel() {
+  panel.classList.remove('open');
+  setTimeout(() => { overlay.style.display = 'none'; }, 320);
+}
+
+document.getElementById('panelClose').addEventListener('click', closePanel);
+overlay.addEventListener('click', closePanel);
+
+updateTable();
+</script>
+</body>
+</html>
